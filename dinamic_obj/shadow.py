@@ -31,7 +31,7 @@ class Shadow(pygame.sprite.Sprite):
     def update(self, *args: Tuple) -> None:
         """
         Задаём новое значение альфа канала и в случае,
-        если оно стало меньше порогового — удаляем его из группы.
+        если оно стало меньше порогового — удаляем тень из группы.
         """
         self.alpha *= self.coeff_fading
         if self.alpha < 1:
