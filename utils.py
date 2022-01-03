@@ -46,8 +46,8 @@ def get_reflected_vector(
     # нам, в зависимости от того, в какой четверти расположен вектор,
     # нужно высчитывать либо его sin, либо его cos.
 
-    # Так как координаты в геометрии строятся в 1-й координатной плоскости,
-    # а в PyGame в 4-й — в расчётах мы будем инвертировать Y (высоту).
+    # Так как в геометрии ось Y направлена вверх,
+    # а на мониторах вниз, то мы будем инвертировать Y (высоту).
 
     if x > 0 and y <= 0:  # если вектор направлен в 1-ю координатную четверть
         vector_sin = -y / vector_len
@@ -60,12 +60,12 @@ def get_reflected_vector(
     elif x < 0 and y >= 0:  # если вектор направлен в 3-ю координатную четверть
         vector_cos = x / vector_len
         vector_angle = -acos(vector_cos)
-        vector_angle += pi * 2
+        vector_angle += pi * 2  # вычисляем размер угла из отрицательного
 
     elif x >= 0 and y > 0:  # если вектор направлен в 4-ю координатную четверть
         vector_sin = -y / vector_len
         vector_angle = asin(vector_sin)
-        vector_angle += pi * 2
+        vector_angle += pi * 2  # вычисляем размер угла из отрицательного
 
     # Есть диапазон углов, с которым вектор гарантировано не будет пересекаться
     # Нам нужно проверить, не входит ли угол поверхности в этот диапазон.
@@ -112,10 +112,10 @@ def get_reflected_vector(
         f'----------------------------'
     )
 
-    new_vector_angle_sin = sin(-new_vector_angle)
+    new_vector_angle_sin = sin(-new_vector_angle)  # инвертируем обратно ось Y
     new_vector_angle_cos = cos(new_vector_angle)
 
-    new_vector_len = vector_len * rebound_ratio
+    new_vector_len = vector_len * rebound_ratio  # гасим отскок на коэффициент
 
     new_x = new_vector_angle_cos * new_vector_len
     new_y = new_vector_angle_sin * new_vector_len
