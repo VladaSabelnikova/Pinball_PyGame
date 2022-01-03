@@ -9,18 +9,18 @@ class Wall(pygame.sprite.Sprite):
     """
     Класс для создания стены.
     """
+
     def __init__(
         self,
         angle: int,
         rebound_ratio: Union[int, float],
         img: str,
-        x: int,
-        y: int,
         all_sprites: pygame.sprite.Group,
         walls: pygame.sprite.Group,
-        name: str
+        name: str,
+        x: int = 0,
+        y: int = 0,
     ) -> None:
-
         super().__init__(all_sprites)
         self.add(walls)
         self.name = name

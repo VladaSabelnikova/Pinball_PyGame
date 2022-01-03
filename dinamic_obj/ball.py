@@ -3,7 +3,7 @@ import random
 import pygame
 
 from dinamic_obj.shadow import Shadow
-from settings import GRAVITY, BALL_FILE_NAME
+from settings import GRAVITY, BALL_PATH
 from utils import load_image, get_reflected_vector, logger
 
 
@@ -23,7 +23,7 @@ class Ball(pygame.sprite.Sprite):
         super().__init__(all_sprites)
         self.radius = radius
 
-        image = load_image(BALL_FILE_NAME)
+        image = load_image(BALL_PATH)
         self.image = pygame.transform.scale(image, (radius * 2, radius * 2))
         self.rect = self.image.get_rect()
 
