@@ -47,12 +47,52 @@ def main():
         name='right_1_main_223'
     )
 
+    Wall(
+        angle=0,
+        rebound_ratio=0.91,
+        img='images/top_2_temp_0.png',
+        all_sprites=all_sprites,
+        walls=walls,
+        name='top_2_temp_0'
+    )
 
-    Wall(10, 0.93, 'images/top_10.png', all_sprites, walls, 'top')
-    # Wall(190, 0.93, 'images/bott_190.png', all_sprites, walls, 'bott', 0, 411)
-    #
-    Wall(100, 0.93, 'images/left_100.png', all_sprites, walls, 'left')
-    Wall(280, 0.93, 'images/right_280.png', all_sprites, walls, 'right', 411, 0)
+    Wall(
+        angle=270,
+        rebound_ratio=0.91,
+        img='images/right_2_temp_270.png',
+        all_sprites=all_sprites,
+        walls=walls,
+        name='right_2_temp_270'
+    )
+
+    Wall(
+        angle=90,
+        rebound_ratio=0.91,
+        img='images/left_2_temp_90.png',
+        all_sprites=all_sprites,
+        walls=walls,
+        name='left_2_temp_90'
+    )
+
+    Wall(
+        angle=223,
+        rebound_ratio=0.91,
+        img='images/right_1_paddle_223.png',
+        all_sprites=all_sprites,
+        walls=walls,
+        name='right_1_paddle_223'
+    )
+
+    Wall(
+        angle=133,
+        rebound_ratio=0.91,
+        img='images/left_1_paddle_133.png',
+        all_sprites=all_sprites,
+        walls=walls,
+        name='left_1_paddle_133'
+    )
+
+
 
     for i in range(1):
         Ball(20, 200, 200, all_sprites)
@@ -65,7 +105,6 @@ def main():
         screen.fill((40, 40, 40))
         all_sprites.draw(screen)
         t = clock.tick() / 1000
-        print(t)
         all_sprites.update(walls, t, all_sprites, shadow, screen)
         pygame.display.flip()
 
