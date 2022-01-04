@@ -5,7 +5,8 @@ import pygame
 
 from dinamic_obj.shadow import Shadow
 from settings import GRAVITY, BALL_PATH
-from utils import load_image, get_reflected_vector, logger
+from utils import load_image, get_reflected_vector, logger, \
+    get_reflected_vector_debug
 
 
 class Ball(pygame.sprite.Sprite):
@@ -31,8 +32,8 @@ class Ball(pygame.sprite.Sprite):
         self.mask = pygame.mask.from_surface(self.image)
 
         # Рандомное направление вектора.
-        self.vx = random.randint(-2000, 2000)
-        self.vy = random.randint(-2000, -1500)
+        self.vx = -120 # random.randint(-2000, 2000)
+        self.vy = -200 # random.randint(-2000, -1500)
         self.x = x
         self.y = y
 
@@ -59,10 +60,10 @@ class Ball(pygame.sprite.Sprite):
 
         # Тень должна быть ниже на слой относительно мяча.
         screen.blit(self.image, (self.rect.x, self.rect.y))
-        self.new_vector(walls)
-        self.new_vector(paddles)
+        self.new_vector(walls, get_reflected_vector)
+        self.new_vector(paddles, get_reflected_vector_debug)
 
-    def new_vector(self, collide_surface: pygame.sprite) -> None:
+    def new_vector(self, collide_surface: pygame.sprite, func) -> None:
 
         """
         Метод выявляет столкновение с препятствием и заменяет вектор.
@@ -81,7 +82,7 @@ class Ball(pygame.sprite.Sprite):
         if collides:
             for barrier in collides:
                 logger.debug(f'{barrier.name} {barrier.angle}')
-                self.vx, self.vy = get_reflected_vector(
+                self.vx, self.vy = func(
                     [self.vx, self.vy],
                     barrier.angle,
                     barrier.rebound_ratio

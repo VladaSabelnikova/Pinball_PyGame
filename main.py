@@ -1,6 +1,8 @@
 import pygame
 
 from dinamic_obj.ball import Ball
+from dinamic_obj.left_paddle_down import LeftPaddleDown
+from dinamic_obj.left_paddle_top import LeftPaddleTop
 from dinamic_obj.paddle import Paddle
 from settings import KEY_LEFT, KEY_RIGHT
 from static_obj.wall import Wall
@@ -14,6 +16,7 @@ def main():
     screen = pygame.display.set_mode((500, 660))
     walls = pygame.sprite.Group()
     shadow = pygame.sprite.Group()
+
     paddles = pygame.sprite.Group()
 
     Wall(
@@ -78,24 +81,29 @@ def main():
         name='left_2_temp_90'
     )
 
-    paddle_right = Paddle(
-        angle=223,
-        rebound_ratio=0.91,
-        img=load_image('sprites/paddle_right.png'),
-        all_sprites=all_sprites,
-        walls=paddles,
-        name='paddle_right',
-        columns=3,  #!!!
-        rows=1  #!!!
+    # paddle_right = Paddle(
+    #     angle=223,
+    #     rebound_ratio=0.91,
+    #     img=load_image('sprites/paddle_right.png'),
+    #     all_sprites=all_sprites,
+    #     walls=paddles,
+    #     name='paddle_right',
+    #     columns=3,  #!!!
+    #     rows=1  #!!!
+    # )
+
+    left_paddle_down = LeftPaddleDown(
+
     )
 
-    paddle_left = Paddle(
+    left_paddle_top = LeftPaddleTop(
         angle=133,
         rebound_ratio=0.91,
         img=load_image('sprites/paddle_left.png'),
         all_sprites=all_sprites,
-        walls=paddles,
-        name='paddle_left',
+        paddles=paddles,
+        down_part=left_paddle_down,
+        name='paddle_left_top',
         columns=3,  #!!!
         rows=1  #!!!
     )
@@ -126,8 +134,6 @@ def main():
                 elif event.key == KEY_RIGHT:
                     paddle_right.rotate_up = rotate
 
-        # paddle_left.rotate_up = rotate
-        # paddle_right.rotate_up = rotate
         screen.fill((40, 40, 40))
         all_sprites.draw(screen)
         t = clock.tick() / 1000
