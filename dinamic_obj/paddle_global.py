@@ -3,9 +3,10 @@ from typing import Union
 import pygame
 
 
-class LeftPaddleBottom(pygame.sprite.Sprite):
+class PaddleGlobal(pygame.sprite.Sprite):
     """
-    Класс для создания левой нижней части доски.
+    Класс, общий для всех досок и их частей.
+    Только общие атрибуты и методы для всех, ничего лишнего.
     """
 
     def __init__(
@@ -21,6 +22,7 @@ class LeftPaddleBottom(pygame.sprite.Sprite):
         x: int = 0,
         y: int = 0,
     ) -> None:
+
         super().__init__(paddles)
         self.add(all_sprites)
         self.name = name
@@ -38,10 +40,13 @@ class LeftPaddleBottom(pygame.sprite.Sprite):
         self.mask = pygame.mask.from_surface(self.image)
         self.rotate_up = False
 
-        self.step_angle = 15
-        self.max_angle = self.step_angle * len(self.frames) + self.start_angle
+    def cut_sheet(
+        self,
+        sheet: pygame.image,
+        columns: int = 3,
+        rows: int = 1
+    ) -> None:
 
-    def cut_sheet(self, sheet: pygame.image, columns: int = 3, rows: int = 1) -> None:
         self.rect = pygame.Rect(0, 0, sheet.get_width() // columns,
                                 sheet.get_height() // rows)
         for j in range(rows):
@@ -49,15 +54,3 @@ class LeftPaddleBottom(pygame.sprite.Sprite):
                 frame_location = (self.rect.w * i, self.rect.h * j)
                 self.frames.append(sheet.subsurface(pygame.Rect(
                     frame_location, self.rect.size)))
-
-    def update(self, *args):
-        if self.rotate_up:
-            self.cur_frame = min(self.cur_frame + 1, len(self.frames) - 1)
-            self.angle = min(self.angle + self.step_angle,
-                             self.start_angle + 90)
-
-        else:
-            self.cur_frame = max(self.cur_frame - 1, 0)
-            self.angle = max(self.angle - self.step_angle, self.start_angle)
-        self.image = self.frames[self.cur_frame]
-        self.mask = pygame.mask.from_surface(self.image)

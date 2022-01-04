@@ -1,9 +1,9 @@
 import pygame
 
 from dinamic_obj.ball import Ball
-from dinamic_obj.left_paddle_bottom import  LeftPaddleBottom
-from dinamic_obj.left_paddle_top import LeftPaddleTop
-from dinamic_obj.paddle import Paddle
+from dinamic_obj.left_paddle import LeftPaddle
+# from dinamic_obj.left_paddle_bottom import LeftPaddleBottom
+# from dinamic_obj.left_paddle_top import LeftPaddleTop
 from settings import KEY_LEFT, KEY_RIGHT
 from static_obj.wall import Wall
 from utils import load_image
@@ -81,20 +81,9 @@ def main():
         name='left_2_temp_90'
     )
 
-    # paddle_right = Paddle(
-    #     angle=223,
-    #     rebound_ratio=0.91,
-    #     img=load_image('sprites/paddle_right.png'),
-    #     all_sprites=all_sprites,
-    #     walls=paddles,
-    #     name='paddle_right',
-    #     columns=3,  #!!!
-    #     rows=1  #!!!
-    # )
-
-    left_paddle_bottom = LeftPaddleBottom(
+    left_paddle_bottom = LeftPaddle(
         angle=334,
-        rebound_ratio=1.2,
+        rebound_ratio=1,
         img=load_image('sprites/paddle_left_bottom.png'),
         paddles=paddles,
         all_sprites=all_sprites,
@@ -103,13 +92,12 @@ def main():
         rows=1  # !!!
     )
 
-    left_paddle_top = LeftPaddleTop(
+    left_paddle_top = LeftPaddle(
         angle=133,
-        rebound_ratio=1.2,
+        rebound_ratio=1,
         img=load_image('sprites/paddle_left_top.png'),
         all_sprites=all_sprites,
         paddles=paddles,
-        bottom_part=left_paddle_bottom,
         name='paddle_left_top',
         columns=3,  #!!!
         rows=1  #!!!
