@@ -29,8 +29,8 @@ class Shadow(pygame.sprite.Sprite):
         )
         self.rect = self.image.get_rect()
 
-        self.rect.x = x + 10
-        self.rect.y = y + 10
+        self.rect.x = x + 14
+        self.rect.y = y + 14
 
     def update(self, *args: Tuple) -> None:
         """
