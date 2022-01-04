@@ -1,7 +1,7 @@
 import pygame
 
 from dinamic_obj.ball import Ball
-from dinamic_obj.left_paddle_down import LeftPaddleDown
+from dinamic_obj.left_paddle_bottom import  LeftPaddleBottom
 from dinamic_obj.left_paddle_top import LeftPaddleTop
 from dinamic_obj.paddle import Paddle
 from settings import KEY_LEFT, KEY_RIGHT
@@ -92,17 +92,24 @@ def main():
     #     rows=1  #!!!
     # )
 
-    left_paddle_down = LeftPaddleDown(
-
+    left_paddle_bottom = LeftPaddleBottom(
+        angle=334,
+        rebound_ratio=1.2,
+        img=load_image('sprites/paddle_left_bottom.png'),
+        paddles=paddles,
+        all_sprites=all_sprites,
+        name='paddle_left_bottom',
+        columns=3,  # !!!
+        rows=1  # !!!
     )
 
     left_paddle_top = LeftPaddleTop(
         angle=133,
-        rebound_ratio=0.91,
-        img=load_image('sprites/paddle_left.png'),
+        rebound_ratio=1.2,
+        img=load_image('sprites/paddle_left_top.png'),
         all_sprites=all_sprites,
         paddles=paddles,
-        down_part=left_paddle_down,
+        bottom_part=left_paddle_bottom,
         name='paddle_left_top',
         columns=3,  #!!!
         rows=1  #!!!
@@ -123,16 +130,18 @@ def main():
             if event.type == pygame.KEYDOWN:
                 rotate = True
                 if event.key == KEY_LEFT:
-                    paddle_left.rotate_up = rotate
+                    left_paddle_top.rotate_up = rotate
+                    left_paddle_bottom.rotate_up = rotate
                 elif event.key == KEY_RIGHT:
-                    paddle_right.rotate_up = rotate
+                    pass
 
             if event.type == pygame.KEYUP:
                 rotate = False
                 if event.key == KEY_LEFT:
-                    paddle_left.rotate_up = rotate
+                    left_paddle_top.rotate_up = rotate
+                    left_paddle_bottom.rotate_up = rotate
                 elif event.key == KEY_RIGHT:
-                    paddle_right.rotate_up = rotate
+                    pass
 
         screen.fill((40, 40, 40))
         all_sprites.draw(screen)

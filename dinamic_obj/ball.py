@@ -32,8 +32,8 @@ class Ball(pygame.sprite.Sprite):
         self.mask = pygame.mask.from_surface(self.image)
 
         # Рандомное направление вектора.
-        self.vx = -120 # random.randint(-2000, 2000)
-        self.vy = -200 # random.randint(-2000, -1500)
+        self.vx = -400 # random.randint(-2000, 2000)
+        self.vy = -400 # random.randint(-2000, -1500)
         self.x = x
         self.y = y
 

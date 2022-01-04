@@ -2,7 +2,7 @@ from typing import Union
 
 import pygame
 
-from dinamic_obj.left_paddle_down import LeftPaddleDown
+from dinamic_obj.left_paddle_bottom import LeftPaddleBottom
 
 
 class LeftPaddleTop(pygame.sprite.Sprite):
@@ -17,7 +17,7 @@ class LeftPaddleTop(pygame.sprite.Sprite):
         img: pygame.image,
         all_sprites: pygame.sprite.Group,
         paddles: pygame.sprite.Group,
-        down_part: pygame.sprite.Sprite,
+        bottom_part: pygame.sprite.Sprite,
         name: str,
         columns: int,
         rows: int,
@@ -27,7 +27,7 @@ class LeftPaddleTop(pygame.sprite.Sprite):
         super().__init__(all_sprites)
         self.add(paddles)
 
-        self.down_part = down_part
+        self.bottom_part = bottom_part
 
         self.name = name
         self.start_angle = angle
@@ -44,7 +44,7 @@ class LeftPaddleTop(pygame.sprite.Sprite):
         self.mask = pygame.mask.from_surface(self.image)
         self.rotate_up = False
 
-        self.step_angle = 15
+        self.step_angle = 45  # !!!
         self.max_angle = self.step_angle * len(self.frames) + self.start_angle
 
     def cut_sheet(self, sheet: pygame.image, columns: int = 3, rows: int = 1) -> None:
@@ -59,9 +59,10 @@ class LeftPaddleTop(pygame.sprite.Sprite):
     def update(self, *args):
         if self.rotate_up:
             self.cur_frame = min(self.cur_frame + 1, len(self.frames) - 1)
+            self.angle = min(self.angle + self.step_angle, self.start_angle + 90)
+
         else:
             self.cur_frame = max(self.cur_frame - 1, 0)
+            self.angle = max(self.angle - self.step_angle, self.start_angle)
         self.image = self.frames[self.cur_frame]
         self.mask = pygame.mask.from_surface(self.image)
-
-        self.down_part.update(self.cur_frame)
