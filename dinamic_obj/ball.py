@@ -1,4 +1,5 @@
 import random
+from typing import Tuple
 
 import pygame
 
@@ -41,7 +42,7 @@ class Ball(pygame.sprite.Sprite):
         t: float,
         all_sprites: pygame.sprite.Group,
         shadow: pygame.sprite.Group,
-        screen: pygame.display
+        screen: pygame.display,
     ) -> None:
 
         self.x += self.vx * t
@@ -59,19 +60,35 @@ class Ball(pygame.sprite.Sprite):
         screen.blit(self.image, (self.rect.x, self.rect.y))
 
         # Проверяем столкновение по маске.
-        collides = pygame.sprite.spritecollide(
+        collides_walls = pygame.sprite.spritecollide(
             self,
             walls,
             False,
             collided=pygame.sprite.collide_mask
         )
 
-        if collides:  # Если столкновение есть —
+        # collides_paddles = pygame.sprite.spritecollide(
+        #     self,
+        #     paddles,
+        #     False,
+        #     collided=pygame.sprite.collide_mask
+        # )
+
+        if collides_walls:  # Если столкновение есть —
             # проходим по всем поверхностями заменяем направление вектора.
-            for wall in collides:
+            for wall in collides_walls:
                 logger.debug(f'{wall.name} {wall.angle}')
                 self.vx, self.vy = get_reflected_vector(
                     [self.vx, self.vy],
                     wall.angle,
                     wall.rebound_ratio
                 )
+
+        # if collides_paddles:
+        #     for paddle in collides_paddles:
+        #         logger.debug(f'{paddle.name} {paddle.angle}')
+        #         self.vx, self.vy = get_reflected_vector(
+        #             [self.vx, self.vy],
+        #             paddle.angle,
+        #             paddle.rebound_ratio
+        #         )

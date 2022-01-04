@@ -1,7 +1,9 @@
 import pygame
 
 from dinamic_obj.ball import Ball
+from dinamic_obj.paddle import Paddle
 from static_obj.wall import Wall
+from utils import load_image
 
 
 def main():
@@ -11,6 +13,7 @@ def main():
     screen = pygame.display.set_mode((500, 660))
     walls = pygame.sprite.Group()
     shadow = pygame.sprite.Group()
+    paddles = pygame.sprite.Group()
 
     Wall(
         angle=90,
@@ -74,34 +77,45 @@ def main():
         name='left_2_temp_90'
     )
 
-    Wall(
-        angle=223,
-        rebound_ratio=0.91,
-        img='images/right_1_paddle_223.png',
-        all_sprites=all_sprites,
-        walls=walls,
-        name='right_1_paddle_223'
-    )
-
-    Wall(
-        angle=133,
-        rebound_ratio=0.91,
-        img='images/left_1_paddle_133.png',
-        all_sprites=all_sprites,
-        walls=walls,
-        name='left_1_paddle_133'
-    )
-
-
+    # Paddle(
+    #     angle=223,
+    #     rebound_ratio=0.99,
+    #     img=load_image('sprites/paddle_right.png'),
+    #     all_sprites=all_sprites,
+    #     walls=paddles,
+    #     name='paddle_right',
+    #     columns=3,
+    #     rows=1
+    # )
+    #
+    # Paddle(
+    #     angle=133,
+    #     rebound_ratio=0.99,
+    #     img=load_image('sprites/paddle_left.png'),
+    #     all_sprites=all_sprites,
+    #     walls=paddles,
+    #     name='paddle_left',
+    #     columns=3,
+    #     rows=1
+    # )
 
     for i in range(1):
         Ball(20, 200, 200, all_sprites)
+
     running = True
+    rotate = False
     clock = pygame.time.Clock()
+    t = None
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            # if event.type == pygame.KEYDOWN:
+            #     rotate = True
+            #     paddles.update(is_rotate=rotate)
+            # if event.type == pygame.KEYUP:
+            #     rotate = False
+            #     paddles.update(is_rotate=rotate)
         screen.fill((40, 40, 40))
         all_sprites.draw(screen)
         t = clock.tick() / 1000
