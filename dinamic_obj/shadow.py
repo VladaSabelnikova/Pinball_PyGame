@@ -17,15 +17,15 @@ class Shadow(pygame.sprite.Sprite):
     ) -> None:
         super().__init__(all_sprites)
         self.add(shadow)
-        self.coeff_fading = 0.990
-        self.alpha = 150
-        self.image = pygame.Surface((10, 10), pygame.SRCALPHA, 32)
+        self.coeff_fading = 0.972
+        self.alpha = 255
+        self.image = pygame.Surface((12, 12), pygame.SRCALPHA, 32)
         self.image.set_alpha(self.alpha)
         pygame.draw.circle(
             self.image,
             pygame.Color(0, 162, 255),
-            (10, 10),
-            10
+            (6, 6),
+            6
         )
         self.rect = self.image.get_rect()
 
