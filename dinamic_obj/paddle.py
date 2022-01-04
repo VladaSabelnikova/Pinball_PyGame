@@ -25,7 +25,9 @@ class Paddle(pygame.sprite.Sprite):
         self.add(walls)
         self.name = name
 
-        self.angle_down = angle
+        self.start_angle = angle
+        self.start_rebound_ratio = rebound_ratio
+
         self.angle = angle
         self.rebound_ratio = rebound_ratio
 
@@ -35,8 +37,12 @@ class Paddle(pygame.sprite.Sprite):
         self.image = self.frames[self.cur_frame]
         self.rect = self.rect.move(x, y)
         self.mask = pygame.mask.from_surface(self.image)
+        self.rotate_up = False
 
-    def cut_sheet(self, sheet, columns=3, rows=1):
+        self.step_angle = 15 if self.name == 'paddle_left' else -15  # заменить при большем кол-ве картинок
+        self.max_angle = self.step_angle * len(self.frames) + self.start_angle
+
+    def cut_sheet(self, sheet: pygame.image, columns: int = 3, rows: int = 1) -> None:
         self.rect = pygame.Rect(0, 0, sheet.get_width() // columns,
                                 sheet.get_height() // rows)
         for j in range(rows):
@@ -45,17 +51,13 @@ class Paddle(pygame.sprite.Sprite):
                 self.frames.append(sheet.subsurface(pygame.Rect(
                     frame_location, self.rect.size)))
 
-    def update(self, is_rotate=False):
-        # coeff_angle = 3 if is_rotate else -3
-        # self.angle += coeff_angle
-        # if self.angle < self.angle_down:
-        #     self.angle = self.angle_down
-        # elif self.angle > self.angle_down + 90:
-        #     self.angle = self.angle_down + 90
+    def update(self, *args) -> None:
 
-        if is_rotate:
+        if self.rotate_up:
+            self.angle = min(self.angle + self.step_angle, self.max_angle)
             self.cur_frame = min(self.cur_frame + 1, len(self.frames) - 1)
         else:
+            self.angle = max(self.angle - self.step_angle, self.start_angle)
             self.cur_frame = max(self.cur_frame - 1, 0)
 
         self.image = self.frames[self.cur_frame]

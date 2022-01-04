@@ -38,6 +38,7 @@ class Ball(pygame.sprite.Sprite):
 
     def update(
         self,
+        paddles: pygame.sprite,
         walls: pygame.sprite,
         t: float,
         all_sprites: pygame.sprite.Group,
@@ -58,37 +59,30 @@ class Ball(pygame.sprite.Sprite):
 
         # Тень должна быть ниже на слой относительно мяча.
         screen.blit(self.image, (self.rect.x, self.rect.y))
+        self.new_vector(walls)
+        self.new_vector(paddles)
+
+    def new_vector(self, collide_surface: pygame.sprite) -> None:
+
+        """
+        Метод выявляет столкновение с препятствием и заменяет вектор.
+        """
 
         # Проверяем столкновение по маске.
-        collides_walls = pygame.sprite.spritecollide(
+        collides = pygame.sprite.spritecollide(
             self,
-            walls,
+            collide_surface,
             False,
             collided=pygame.sprite.collide_mask
         )
 
-        # collides_paddles = pygame.sprite.spritecollide(
-        #     self,
-        #     paddles,
-        #     False,
-        #     collided=pygame.sprite.collide_mask
-        # )
-
-        if collides_walls:  # Если столкновение есть —
-            # проходим по всем поверхностями заменяем направление вектора.
-            for wall in collides_walls:
-                logger.debug(f'{wall.name} {wall.angle}')
+        # Если столкновение есть —
+        # проходим по всем поверхностям и заменяем направление вектора.
+        if collides:
+            for barrier in collides:
+                logger.debug(f'{barrier.name} {barrier.angle}')
                 self.vx, self.vy = get_reflected_vector(
                     [self.vx, self.vy],
-                    wall.angle,
-                    wall.rebound_ratio
+                    barrier.angle,
+                    barrier.rebound_ratio
                 )
-
-        # if collides_paddles:
-        #     for paddle in collides_paddles:
-        #         logger.debug(f'{paddle.name} {paddle.angle}')
-        #         self.vx, self.vy = get_reflected_vector(
-        #             [self.vx, self.vy],
-        #             paddle.angle,
-        #             paddle.rebound_ratio
-        #         )

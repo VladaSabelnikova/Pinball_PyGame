@@ -2,6 +2,7 @@ import pygame
 
 from dinamic_obj.ball import Ball
 from dinamic_obj.paddle import Paddle
+from settings import KEY_LEFT, KEY_RIGHT
 from static_obj.wall import Wall
 from utils import load_image
 
@@ -77,27 +78,27 @@ def main():
         name='left_2_temp_90'
     )
 
-    # Paddle(
-    #     angle=223,
-    #     rebound_ratio=0.99,
-    #     img=load_image('sprites/paddle_right.png'),
-    #     all_sprites=all_sprites,
-    #     walls=paddles,
-    #     name='paddle_right',
-    #     columns=3,
-    #     rows=1
-    # )
-    #
-    # Paddle(
-    #     angle=133,
-    #     rebound_ratio=0.99,
-    #     img=load_image('sprites/paddle_left.png'),
-    #     all_sprites=all_sprites,
-    #     walls=paddles,
-    #     name='paddle_left',
-    #     columns=3,
-    #     rows=1
-    # )
+    paddle_right = Paddle(
+        angle=223,
+        rebound_ratio=0.91,
+        img=load_image('sprites/paddle_right.png'),
+        all_sprites=all_sprites,
+        walls=paddles,
+        name='paddle_right',
+        columns=3,  #!!!
+        rows=1  #!!!
+    )
+
+    paddle_left = Paddle(
+        angle=133,
+        rebound_ratio=0.91,
+        img=load_image('sprites/paddle_left.png'),
+        all_sprites=all_sprites,
+        walls=paddles,
+        name='paddle_left',
+        columns=3,  #!!!
+        rows=1  #!!!
+    )
 
     for i in range(1):
         Ball(20, 200, 200, all_sprites)
@@ -110,16 +111,27 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            # if event.type == pygame.KEYDOWN:
-            #     rotate = True
-            #     paddles.update(is_rotate=rotate)
-            # if event.type == pygame.KEYUP:
-            #     rotate = False
-            #     paddles.update(is_rotate=rotate)
+
+            if event.type == pygame.KEYDOWN:
+                rotate = True
+                if event.key == KEY_LEFT:
+                    paddle_left.rotate_up = rotate
+                elif event.key == KEY_RIGHT:
+                    paddle_right.rotate_up = rotate
+
+            if event.type == pygame.KEYUP:
+                rotate = False
+                if event.key == KEY_LEFT:
+                    paddle_left.rotate_up = rotate
+                elif event.key == KEY_RIGHT:
+                    paddle_right.rotate_up = rotate
+
+        # paddle_left.rotate_up = rotate
+        # paddle_right.rotate_up = rotate
         screen.fill((40, 40, 40))
         all_sprites.draw(screen)
         t = clock.tick() / 1000
-        all_sprites.update(walls, t, all_sprites, shadow, screen)
+        all_sprites.update(paddles, walls, t, all_sprites, shadow, screen)
         pygame.display.flip()
 
     pygame.quit()
