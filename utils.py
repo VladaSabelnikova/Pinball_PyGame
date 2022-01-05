@@ -26,7 +26,8 @@ def get_reflected_vector(
     rebound_ratio: float
 ) -> Tuple[Union[int, float], Union[int, float]]:
     """
-    Функция возвращает новое направление вектора.
+    Функция возвращает новое направление вектора
+    в случае столкновения со стеной.
 
     :param vector: Текущее направление вектора.
     :param w_angle: Угол поверхности,
@@ -127,13 +128,14 @@ def get_reflected_vector(
     return new_x, new_y
 
 
-def get_reflected_vector_debug(
+def get_reflected_vector_paddle(
     vector: List[Union[int, float]],
     w_angle: int,
     rebound_ratio: float
 ) -> Tuple[Union[int, float], Union[int, float]]:
     """
-    Функция возвращает новое направление вектора.
+    Функция возвращает новое направление вектора
+    в случае столкновения с лопаткой.
 
     :param vector: Текущее направление вектора.
     :param w_angle: Угол поверхности,
@@ -144,6 +146,10 @@ def get_reflected_vector_debug(
 
     x, y = vector
     wall_angle = radians(w_angle)
+
+    logger.debug(
+        f'\nВходящий вектор   {x, y}\n'
+    )
 
     # Длинна вектора является гипотенузой,
     # следовательно, по Т. Пифагора находим её длину.
@@ -188,20 +194,20 @@ def get_reflected_vector_debug(
         if vector_angle <= wall_angle <= pi * 2 or \
             0 <= wall_angle <= not_collide_range:
             logger.debug(
-                f'\nУгол вектора      {degrees(vector_angle)}\n'
+                f'\nУгол вектора      {degrees(vector_angle) % 360}\n'
                 f'Вектор отскока    {x, y}\n'
-                f'Нет столкновения\n'
-                f'wall_angle        {degrees(wall_angle)}\n'
+                f'wall_angle        {degrees(wall_angle) % 360}\n'
+                f'НЕТ СТОЛКНОВЕНИЯ\n'
                 f'----------------------------'
             )
             return x, y
     else:  # В противном случае диапазон один.
         if vector_angle <= wall_angle <= not_collide_range:
             logger.debug(
-                f'\nУгол вектора      {degrees(vector_angle)}\n'
+                f'\nУгол вектора      {degrees(vector_angle) % 360}\n'
                 f'Вектор отскока    {x, y}\n'
-                f'Нет столкновения\n'
-                f'wall_angle        {degrees(wall_angle)}\n'
+                f'wall_angle        {degrees(wall_angle) % 360}\n'
+                f'НЕТ СТОЛКНОВЕНИЯ\n'
                 f'----------------------------'
             )
             return x, y
@@ -215,11 +221,10 @@ def get_reflected_vector_debug(
     new_vector_angle = collide_angle + wall_angle
 
     logger.debug(
-        f'\nУгол вектора      {degrees(vector_angle)}\n'
-        f'Угол столкновения {degrees(collide_angle)}\n'
-        f'Угол отскока      {degrees(new_vector_angle)}\n'
-        f'wall_angle        {degrees(wall_angle)}\n'
-        f'----------------------------'
+        f'\nУгол вектора      {degrees(vector_angle) % 360}\n'
+        f'Угол столкновения {degrees(collide_angle) % 360}\n'
+        f'Угол отскока      {degrees(new_vector_angle) % 360}\n'
+        f'wall_angle        {degrees(wall_angle) % 360}\n'
     )
 
     new_vector_angle_sin = sin(-new_vector_angle)  # инвертируем обратно ось Y

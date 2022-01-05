@@ -1,12 +1,11 @@
 import random
-from typing import Tuple
 
 import pygame
 
 from dinamic_obj.shadow import Shadow
 from settings import GRAVITY, BALL_PATH
 from utils import load_image, get_reflected_vector, logger, \
-    get_reflected_vector_debug
+    get_reflected_vector_paddle
 
 
 class Ball(pygame.sprite.Sprite):
@@ -37,8 +36,9 @@ class Ball(pygame.sprite.Sprite):
         # self.vx = random.randint(-500, 500)
         # self.vy = random.randint(-500, 500)
 
-        self.vx = 700
-        self.vy = 600
+        self.vx = -700
+        self.vy = 300
+
         self.x = x
         self.y = y
 
@@ -66,7 +66,7 @@ class Ball(pygame.sprite.Sprite):
         # Тень должна быть ниже на слой относительно мяча.
         screen.blit(self.image, (self.rect.x, self.rect.y))
         self.new_vector(walls, get_reflected_vector)
-        self.new_vector(paddles, get_reflected_vector_debug)
+        self.new_vector(paddles, get_reflected_vector_paddle)
 
     def new_vector(self, collide_surface: pygame.sprite, func) -> None:
 
@@ -87,8 +87,11 @@ class Ball(pygame.sprite.Sprite):
         if collides:
             for barrier in collides:
                 logger.debug(f'{barrier.name} {barrier.angle}')
-                self.vx, self.vy = func(
+                temp_x, temp_y = func(
                     [self.vx, self.vy],
                     barrier.angle,
                     barrier.rebound_ratio
                 )
+                if (temp_x, temp_y) != (self.vx, self.vy):
+                    self.vx, self.vy = temp_x, temp_y
+                    break

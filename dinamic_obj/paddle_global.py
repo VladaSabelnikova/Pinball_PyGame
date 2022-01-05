@@ -15,6 +15,7 @@ class PaddleGlobal(pygame.sprite.Sprite):
         self,
         angle: int,
         rebound_ratio: Union[int, float],
+        kick_ratio: float,  # Вот он
         img: pygame.image,
         paddles: pygame.sprite.Group,
         all_sprites: pygame.sprite.Group,
@@ -43,6 +44,8 @@ class PaddleGlobal(pygame.sprite.Sprite):
         self.rotate_up = False
 
         self.speed = PADDLE_SPEED
+        self.kick_ratio = kick_ratio
+        self.current_kick_ratio = 1
 
     def cut_sheet(
         self,

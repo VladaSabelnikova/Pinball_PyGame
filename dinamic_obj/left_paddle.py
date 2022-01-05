@@ -14,6 +14,7 @@ class LeftPaddle(PaddleGlobal):
         self,
         angle: int,
         rebound_ratio: Union[int, float],
+        kick_ratio: float,
         img: pygame.image,
         paddles: pygame.sprite.Group,
         all_sprites: pygame.sprite.Group,
@@ -27,6 +28,7 @@ class LeftPaddle(PaddleGlobal):
         super().__init__(
             angle,
             rebound_ratio,
+            kick_ratio,
             img,
             paddles,
             all_sprites,
@@ -54,3 +56,11 @@ class LeftPaddle(PaddleGlobal):
             self.angle = self.start_angle + self.cur_frame * self.step_angle
             self.image = self.frames[int(self.cur_frame)]
             self.mask = pygame.mask.from_surface(self.image)
+
+        if self.rotate_up:
+            if int(self.cur_frame) != len(self.frames) - 1:
+                self.current_kick_ratio = self.kick_ratio + self.cur_frame
+                print(f'{self.current_kick_ratio} = {self.kick_ratio} * {self.cur_frame}')
+        else:
+            self.current_kick_ratio = 1
+            # print(self.current_kick_ratio)

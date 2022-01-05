@@ -84,7 +84,8 @@ def main():
 
     left_paddle_bottom = LeftPaddle(
         angle=334,
-        rebound_ratio=0.91,
+        kick_ratio=1.1,
+        rebound_ratio=1.1,
         img=load_image('sprites/paddle_bottom_left.png'),
         paddles=paddles,
         all_sprites=all_sprites,
@@ -95,7 +96,8 @@ def main():
 
     left_paddle_top = LeftPaddle(
         angle=133,
-        rebound_ratio=0.91,
+        kick_ratio=1.1,
+        rebound_ratio=0.97,
         img=load_image('sprites/paddle_top_left.png'),
         all_sprites=all_sprites,
         paddles=paddles,
@@ -133,6 +135,7 @@ def main():
     rotate = False
     clock = pygame.time.Clock()
     t = None
+    pause = False
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -146,7 +149,7 @@ def main():
                 elif event.key == KEY_RIGHT:
                     # right_paddle_top.rotate_up = rotate
                     # right_paddle_bottom.rotate_up = rotate
-                    pass
+                    pause = True
 
             if event.type == pygame.KEYUP:
                 rotate = False
@@ -157,12 +160,12 @@ def main():
                     # right_paddle_top.rotate_up = rotate
                     # right_paddle_bottom.rotate_up = rotate
                     pass
-
-        screen.fill((40, 40, 40))
-        all_sprites.draw(screen)
-        t = clock.tick() / 1000
-        all_sprites.update(paddles, walls, t, all_sprites, shadow, screen)
-        pygame.display.flip()
+        if not pause:
+            screen.fill((40, 40, 40))
+            all_sprites.draw(screen)
+            t = clock.tick() / 1000
+            all_sprites.update(paddles, walls, t, all_sprites, shadow, screen)
+            pygame.display.flip()
 
     pygame.quit()
 
