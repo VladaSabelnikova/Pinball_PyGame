@@ -60,7 +60,7 @@ class LeftPaddle(PaddleGlobal):
         if self.rotate_up:
             if int(self.cur_frame) != len(self.frames) - 1:
                 self.current_kick_ratio = self.kick_ratio + self.cur_frame
-                print(f'{self.current_kick_ratio} = {self.kick_ratio} * {self.cur_frame}')
+                # print(f'{self.current_kick_ratio} = {self.kick_ratio} * {self.cur_frame}')
         else:
             self.current_kick_ratio = 1
             # print(self.current_kick_ratio)
