@@ -34,8 +34,11 @@ class Ball(pygame.sprite.Sprite):
         # Рандомное направление вектора.
         # self.vx = random.randint(-2000, 2000)
         # self.vy = random.randint(-2000, -1500)
-        self.vx = random.randint(-500, 500)
-        self.vy = random.randint(-500, 500)
+        # self.vx = random.randint(-500, 500)
+        # self.vy = random.randint(-500, 500)
+
+        self.vx = -500
+        self.vy = -200
         self.x = x
         self.y = y
 

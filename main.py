@@ -85,46 +85,46 @@ def main():
     left_paddle_bottom = LeftPaddle(
         angle=334,
         rebound_ratio=0.91,
-        img=load_image('sprites/paddle_bottom_left.png'),
+        img=load_image('sprites/second_flour_left_bottom.png'),
         paddles=paddles,
         all_sprites=all_sprites,
         name='paddle_left_bottom',
-        columns=31,  # !!!
-        rows=1  # !!!
+        columns=15,  # !!!
+        rows=2  # !!!
     )
 
     left_paddle_top = LeftPaddle(
         angle=133,
         rebound_ratio=0.91,
-        img=load_image('sprites/paddle_top_left.png'),
+        img=load_image('sprites/second_flour_left_top.png'),
         all_sprites=all_sprites,
         paddles=paddles,
         name='paddle_left_top',
-        columns=31,  #!!!
-        rows=1  #!!!
+        columns=15,  #!!!
+        rows=2  #!!!
     )
 
-    right_paddle_top = RightPaddle(
-        angle=223,
-        rebound_ratio=0.91,
-        img=load_image('sprites/paddle_top_right.png'),
-        all_sprites=all_sprites,
-        paddles=paddles,
-        name='paddle_right_top',
-        columns=31,  # !!!
-        rows=1  # !!!
-    )
-
-    right_paddle_bottom = RightPaddle(
-        angle=382,
-        rebound_ratio=0.91,
-        img=load_image('sprites/paddle_bottom_right.png'),
-        all_sprites=all_sprites,
-        paddles=paddles,
-        name='paddle_right_bottom',
-        columns=31,  # !!!
-        rows=1  # !!!
-    )
+    # right_paddle_top = RightPaddle(
+    #     angle=223,
+    #     rebound_ratio=0.91,
+    #     img=load_image('sprites/paddle_top_right.png'),
+    #     all_sprites=all_sprites,
+    #     paddles=paddles,
+    #     name='paddle_right_top',
+    #     columns=31,  # !!!
+    #     rows=1  # !!!
+    # )
+    #
+    # right_paddle_bottom = RightPaddle(
+    #     angle=382,
+    #     rebound_ratio=0.91,
+    #     img=load_image('sprites/paddle_bottom_right.png'),
+    #     all_sprites=all_sprites,
+    #     paddles=paddles,
+    #     name='paddle_right_bottom',
+    #     columns=31,  # !!!
+    #     rows=1  # !!!
+    # )
 
     for i in range(1):
         Ball(20, 200, 200, all_sprites)
@@ -144,8 +144,9 @@ def main():
                     left_paddle_top.rotate_up = rotate
                     left_paddle_bottom.rotate_up = rotate
                 elif event.key == KEY_RIGHT:
-                    right_paddle_top.rotate_up = rotate
-                    right_paddle_bottom.rotate_up = rotate
+                    # right_paddle_top.rotate_up = rotate
+                    # right_paddle_bottom.rotate_up = rotate
+                    pass
 
             if event.type == pygame.KEYUP:
                 rotate = False
@@ -153,8 +154,9 @@ def main():
                     left_paddle_top.rotate_up = rotate
                     left_paddle_bottom.rotate_up = rotate
                 elif event.key == KEY_RIGHT:
-                    right_paddle_top.rotate_up = rotate
-                    right_paddle_bottom.rotate_up = rotate
+                    # right_paddle_top.rotate_up = rotate
+                    # right_paddle_bottom.rotate_up = rotate
+                    pass
 
         screen.fill((40, 40, 40))
         all_sprites.draw(screen)
