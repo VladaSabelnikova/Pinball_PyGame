@@ -14,6 +14,7 @@ class RightPaddle(PaddleGlobal):
         self,
         angle: int,
         rebound_ratio: Union[int, float],
+        kick_ratio: float,
         img: pygame.image,
         paddles: pygame.sprite.Group,
         all_sprites: pygame.sprite.Group,
@@ -27,6 +28,7 @@ class RightPaddle(PaddleGlobal):
         super().__init__(
             angle,
             rebound_ratio,
+            kick_ratio,
             img,
             paddles,
             all_sprites,
@@ -38,15 +40,25 @@ class RightPaddle(PaddleGlobal):
         )
 
         self.step_angle = -3
-        self.max_angle = self.step_angle * len(self.frames) + self.start_angle
 
     def update(self, *args: Tuple) -> None:
+        *_, t = args[:3]
+        prev_frame = int(self.cur_frame)
         if self.rotate_up:
-            self.cur_frame = min(self.cur_frame + 1, len(self.frames) - 1)
-            self.angle = max(self.angle + self.step_angle, self.start_angle - 90)
+            self.cur_frame += self.speed * t
+            self.cur_frame = min(self.cur_frame, len(self.frames) - 1)
 
         else:
-            self.cur_frame = max(self.cur_frame - 1, 0)
-            self.angle = min(self.angle - self.step_angle, self.start_angle)
-        self.image = self.frames[self.cur_frame]
-        self.mask = pygame.mask.from_surface(self.image)
+            self.cur_frame -= self.speed * t
+            self.cur_frame = max(self.cur_frame, 0)
+
+        if prev_frame != int(self.cur_frame):
+            self.angle = self.start_angle + self.cur_frame * self.step_angle
+            self.image = self.frames[int(self.cur_frame)]
+            self.mask = pygame.mask.from_surface(self.image)
+
+        if self.rotate_up:
+            if int(self.cur_frame) != len(self.frames) - 1:
+                self.current_kick_ratio = self.kick_ratio + self.cur_frame
+        else:
+            self.current_kick_ratio = 1

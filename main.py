@@ -106,27 +106,29 @@ def main():
         rows=2  #!!!
     )
 
-    # right_paddle_top = RightPaddle(
-    #     angle=223,
-    #     rebound_ratio=0.91,
-    #     img=load_image('sprites/paddle_top_right.png'),
-    #     all_sprites=all_sprites,
-    #     paddles=paddles,
-    #     name='paddle_right_top',
-    #     columns=31,  # !!!
-    #     rows=1  # !!!
-    # )
-    #
-    # right_paddle_bottom = RightPaddle(
-    #     angle=382,
-    #     rebound_ratio=0.91,
-    #     img=load_image('sprites/paddle_bottom_right.png'),
-    #     all_sprites=all_sprites,
-    #     paddles=paddles,
-    #     name='paddle_right_bottom',
-    #     columns=31,  # !!!
-    #     rows=1  # !!!
-    # )
+    right_paddle_top = RightPaddle(
+        angle=223,
+        kick_ratio=1.1,
+        rebound_ratio=0.91,
+        img=load_image('sprites/paddle_top_right.png'),
+        all_sprites=all_sprites,
+        paddles=paddles,
+        name='paddle_right_top',
+        columns=15,  # !!!
+        rows=2  # !!!
+    )
+
+    right_paddle_bottom = RightPaddle(
+        angle=382,
+        kick_ratio=1.1,
+        rebound_ratio=0.91,
+        img=load_image('sprites/paddle_bottom_right.png'),
+        all_sprites=all_sprites,
+        paddles=paddles,
+        name='paddle_right_bottom',
+        columns=15,  # !!!
+        rows=2  # !!!
+    )
 
     for i in range(1):
         Ball(20, 200, 200, all_sprites)
@@ -135,7 +137,6 @@ def main():
     rotate = False
     clock = pygame.time.Clock()
     t = None
-    pause = False
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -147,9 +148,8 @@ def main():
                     left_paddle_top.rotate_up = rotate
                     left_paddle_bottom.rotate_up = rotate
                 elif event.key == KEY_RIGHT:
-                    # right_paddle_top.rotate_up = rotate
-                    # right_paddle_bottom.rotate_up = rotate
-                    pause = True
+                    right_paddle_top.rotate_up = rotate
+                    right_paddle_bottom.rotate_up = rotate
 
             if event.type == pygame.KEYUP:
                 rotate = False
@@ -157,15 +157,14 @@ def main():
                     left_paddle_top.rotate_up = rotate
                     left_paddle_bottom.rotate_up = rotate
                 elif event.key == KEY_RIGHT:
-                    # right_paddle_top.rotate_up = rotate
-                    # right_paddle_bottom.rotate_up = rotate
-                    pass
-        if not pause:
-            screen.fill((40, 40, 40))
-            all_sprites.draw(screen)
-            t = clock.tick() / 1000
-            all_sprites.update(paddles, walls, t, all_sprites, shadow, screen)
-            pygame.display.flip()
+                    right_paddle_top.rotate_up = rotate
+                    right_paddle_bottom.rotate_up = rotate
+                    # pass
+        screen.fill((40, 40, 40))
+        all_sprites.draw(screen)
+        t = clock.tick() / 1000
+        all_sprites.update(paddles, walls, t, all_sprites, shadow, screen)
+        pygame.display.flip()
 
     pygame.quit()
 
