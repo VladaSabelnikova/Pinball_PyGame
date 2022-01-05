@@ -85,7 +85,7 @@ def main():
     left_paddle_bottom = LeftPaddle(
         angle=334,
         kick_ratio=1.1,
-        rebound_ratio=1.1,
+        rebound_ratio=0.91,
         img=load_image('sprites/paddle_bottom_left.png'),
         paddles=paddles,
         all_sprites=all_sprites,
@@ -97,7 +97,7 @@ def main():
     left_paddle_top = LeftPaddle(
         angle=133,
         kick_ratio=1.1,
-        rebound_ratio=0.97,
+        rebound_ratio=0.91,
         img=load_image('sprites/paddle_top_left.png'),
         all_sprites=all_sprites,
         paddles=paddles,

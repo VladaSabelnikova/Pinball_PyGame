@@ -45,7 +45,7 @@ class PaddleGlobal(pygame.sprite.Sprite):
 
         self.speed = PADDLE_SPEED
         self.kick_ratio = kick_ratio
-        self.current_kick_ratio = 1
+        self.static_rebound_ratio = rebound_ratio
 
     def cut_sheet(
         self,

@@ -57,8 +57,7 @@ class RightPaddle(PaddleGlobal):
             self.image = self.frames[int(self.cur_frame)]
             self.mask = pygame.mask.from_surface(self.image)
 
-        if self.rotate_up:
-            if int(self.cur_frame) != len(self.frames) - 1:
-                self.current_kick_ratio = self.kick_ratio + self.cur_frame
+        if int(self.cur_frame) in (len(self.frames) - 1, 0):
+            self.rebound_ratio = self.static_rebound_ratio
         else:
-            self.current_kick_ratio = 1
+            self.rebound_ratio = self.kick_ratio
