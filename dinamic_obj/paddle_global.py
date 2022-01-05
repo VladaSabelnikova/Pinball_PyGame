@@ -54,3 +54,5 @@ class PaddleGlobal(pygame.sprite.Sprite):
                 frame_location = (self.rect.w * i, self.rect.h * j)
                 self.frames.append(sheet.subsurface(pygame.Rect(
                     frame_location, self.rect.size)))
+        if 'left' in self.name.split('_'):
+            self.frames = self.frames[::-1]

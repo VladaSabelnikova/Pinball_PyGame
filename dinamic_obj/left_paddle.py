@@ -37,7 +37,7 @@ class LeftPaddle(PaddleGlobal):
             y
         )
 
-        self.step_angle = 45
+        self.step_angle = 3
         self.max_angle = self.step_angle * len(self.frames) + self.start_angle
 
     def update(self, *args: Tuple) -> None:

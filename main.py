@@ -84,22 +84,22 @@ def main():
     left_paddle_bottom = LeftPaddle(
         angle=334,
         rebound_ratio=1,
-        img=load_image('sprites/paddle_left_bottom.png'),
+        img=load_image('sprites/paddle_bottom_left.png'),
         paddles=paddles,
         all_sprites=all_sprites,
         name='paddle_left_bottom',
-        columns=3,  # !!!
+        columns=31,  # !!!
         rows=1  # !!!
     )
 
     left_paddle_top = LeftPaddle(
         angle=133,
         rebound_ratio=1,
-        img=load_image('sprites/paddle_left_top.png'),
+        img=load_image('sprites/paddle_top_left.png'),
         all_sprites=all_sprites,
         paddles=paddles,
         name='paddle_left_top',
-        columns=3,  #!!!
+        columns=31,  #!!!
         rows=1  #!!!
     )
 
