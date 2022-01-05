@@ -2,6 +2,8 @@ from typing import Union
 
 import pygame
 
+from settings import PADDLE_SPEED
+
 
 class PaddleGlobal(pygame.sprite.Sprite):
     """
@@ -39,6 +41,8 @@ class PaddleGlobal(pygame.sprite.Sprite):
         self.rect = self.rect.move(x, y)
         self.mask = pygame.mask.from_surface(self.image)
         self.rotate_up = False
+
+        self.speed = PADDLE_SPEED
 
     def cut_sheet(
         self,

@@ -37,8 +37,8 @@ class Ball(pygame.sprite.Sprite):
         # self.vx = random.randint(-500, 500)
         # self.vy = random.randint(-500, 500)
 
-        self.vx = -500
-        self.vy = -200
+        self.vx = 700
+        self.vy = 600
         self.x = x
         self.y = y
 

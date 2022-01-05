@@ -38,17 +38,16 @@ class LeftPaddle(PaddleGlobal):
         )
 
         self.step_angle = 3
-        self.max_angle = self.step_angle * len(self.frames) + self.start_angle
 
     def update(self, *args: Tuple) -> None:
         *_, t = args[:3]
         if self.rotate_up:
-            self.cur_frame = min(self.cur_frame + 1, len(self.frames) - 1)
-            self.angle = min(self.angle + self.step_angle,
-                             self.start_angle + 87)
+            self.cur_frame += self.speed * t
+            self.cur_frame = min(self.cur_frame, len(self.frames) - 1)
 
         else:
-            self.cur_frame = max(self.cur_frame - 1, 0)
-            self.angle = max(self.angle - self.step_angle * t, self.start_angle)
-        self.image = self.frames[self.cur_frame]
+            self.cur_frame -= self.speed * t
+            self.cur_frame = max(self.cur_frame, 0)
+        self.angle = self.start_angle + self.cur_frame * self.step_angle
+        self.image = self.frames[int(self.cur_frame)]
         self.mask = pygame.mask.from_surface(self.image)
