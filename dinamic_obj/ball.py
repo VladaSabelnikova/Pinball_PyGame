@@ -1,9 +1,10 @@
 import random
+from math import sqrt
 
 import pygame
 
 from dinamic_obj.shadow import Shadow
-from settings import GRAVITY, BALL_PATH
+from settings import GRAVITY, BALL_PATH, MAX_SPEED
 from utils import load_image, get_reflected_vector, logger, \
     get_reflected_vector_paddle
 
@@ -36,8 +37,8 @@ class Ball(pygame.sprite.Sprite):
         # self.vx = random.randint(-500, 500)
         # self.vy = random.randint(-500, 500)
 
-        self.vx = 700
-        self.vy = -300
+        self.vx = 200
+        self.vy = 200
 
 
         self.x = x
@@ -94,5 +95,11 @@ class Ball(pygame.sprite.Sprite):
                     barrier.rebound_ratio
                 )
                 if (temp_x, temp_y) != (self.vx, self.vy):
+                    vector_len = sqrt(temp_x ** 2 + temp_y ** 2)
+                    if vector_len > MAX_SPEED:
+                        speed_ratio = MAX_SPEED / vector_len
+                        temp_x = temp_x * speed_ratio
+                        temp_y = temp_y * speed_ratio
+
                     self.vx, self.vy = temp_x, temp_y
                     break

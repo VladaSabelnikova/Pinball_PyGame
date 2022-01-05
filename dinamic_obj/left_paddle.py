@@ -61,4 +61,4 @@ class LeftPaddle(PaddleGlobal):
             self.rebound_ratio = self.static_rebound_ratio
         else:
             self.rebound_ratio = self.kick_ratio
-        print(self.rebound_ratio)
+
