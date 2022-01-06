@@ -42,6 +42,15 @@ def main():
     )
 
     Wall(
+        angle=158,
+        rebound_ratio=0.91,
+        img='images/left_1_triangle_158.png',
+        all_sprites=all_sprites,
+        walls=walls,
+        name='left_1_triangle_158'
+    )
+
+    Wall(
         angle=133,
         rebound_ratio=0.91,
         img='images/left_1_main_133.png',
@@ -58,6 +67,16 @@ def main():
         walls=walls,
         name='right_1_bottom_270'
     )
+
+    Wall(
+        angle=202,
+        rebound_ratio=0.91,
+        img='images/right_1_triangle_202.png',
+        all_sprites=all_sprites,
+        walls=walls,
+        name='right_1_triangle_202'
+    )
+
     Wall(
         angle=223,
         rebound_ratio=0.91,
