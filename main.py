@@ -1,6 +1,7 @@
 import pygame
 
 from dinamic_obj.ball import Ball
+from dinamic_obj.blot import Blot
 from dinamic_obj.left_paddle import LeftPaddle
 # from dinamic_obj.left_paddle_bottom import LeftPaddleBottom
 # from dinamic_obj.left_paddle_top import LeftPaddleTop
@@ -19,6 +20,17 @@ def main():
     shadow = pygame.sprite.Group()
 
     paddles = pygame.sprite.Group()
+    blots = pygame.sprite.Group()
+
+    Blot(
+        rebound_ratio=0.61,
+        img=load_image('sprites/blot_1.png'),
+        blots=blots,
+        all_sprites=all_sprites,
+        name='Test_Clycs',
+        columns=2,
+        rows=1
+    )
 
     Wall(
         angle=90,
@@ -160,7 +172,7 @@ def main():
         screen.fill((40, 40, 40))
         all_sprites.draw(screen)
         t = clock.tick() / 1000
-        all_sprites.update(paddles, walls, t, all_sprites, shadow, screen)
+        all_sprites.update(paddles, walls, blots, t, all_sprites, shadow, screen)
         pygame.display.flip()
 
     pygame.quit()
