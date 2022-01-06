@@ -140,6 +140,7 @@ def get_reflected_vector_paddle(
 
     x, y = vector
     wall_angle = radians(paddle.angle)
+    follow = False
 
     logger.debug(
         f'\nВходящий вектор   {x, y}\n'
@@ -187,13 +188,15 @@ def get_reflected_vector_paddle(
     if vector_angle > pi:
         if vector_angle <= wall_angle <= pi * 2 or 0 <= wall_angle <= not_collide_range:
             if the_same:
-                vector_angle += pi
+                # vector_angle += pi
+                follow = True
             else:
                 return x, y
     else:  # В противном случае диапазон один.
         if vector_angle <= wall_angle <= not_collide_range:
             if the_same:
-                vector_angle += pi
+                # vector_angle += pi
+                follow = True
             else:
                 return x, y
 
@@ -203,7 +206,17 @@ def get_reflected_vector_paddle(
     # collide_angle = сумма всех углов - сумма внутреннего угла wall_angle
     # и угла вектора vector_angle.
     collide_angle = (pi - (pi - wall_angle + vector_angle))
-    new_vector_angle = collide_angle + wall_angle
+    # if the_same and follow:
+    #     vector_angle -= collide_angle
+    if the_same and follow:
+        new_vector_angle = vector_angle
+    else:
+        new_vector_angle = collide_angle + wall_angle
+
+    if the_same and follow:
+        print(degrees(wall_angle), degrees(new_vector_angle))
+    else:
+        print()
 
     logger.debug(
         f'\nУгол вектора      {degrees(vector_angle) % 360}\n'

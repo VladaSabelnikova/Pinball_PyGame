@@ -89,7 +89,7 @@ class Ball(pygame.sprite.Sprite):
         # проходим по всем поверхностям и заменяем направление вектора.
         if collides: #and self.was_a_jump:
             for barrier in collides:
-                logger.info(f'{barrier.name} {barrier.angle}')
+                logger.debug(f'{barrier.name} {barrier.angle}')
                 temp_x, temp_y = func(
                     [self.vx, self.vy],
                     barrier,

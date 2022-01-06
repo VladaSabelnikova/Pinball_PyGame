@@ -53,7 +53,7 @@ class RightPaddle(PaddleGlobal):
             self.cur_frame = max(self.cur_frame, 0)
 
         if prev_frame != int(self.cur_frame):
-            self.angle = self.start_angle + self.cur_frame * self.step_angle
+            self.angle = self.start_angle + int(self.cur_frame) * self.step_angle
             self.image = self.frames[int(self.cur_frame)]
             self.mask = pygame.mask.from_surface(self.image)
 
