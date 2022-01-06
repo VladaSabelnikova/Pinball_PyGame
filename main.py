@@ -84,8 +84,7 @@ def main():
 
     left_paddle_top = LeftPaddle(
         angle=133,
-        kick_ratio=1.1,
-        rebound_ratio=0.91,
+        rebound_ratio=0.96,
         img=load_image('sprites/paddle_top_left.png'),
         all_sprites=all_sprites,
         paddles=paddles,
@@ -96,8 +95,7 @@ def main():
 
     right_paddle_top = RightPaddle(
         angle=223,
-        kick_ratio=1.1,
-        rebound_ratio=0.91,
+        rebound_ratio=0.96,
         img=load_image('sprites/paddle_top_right.png'),
         all_sprites=all_sprites,
         paddles=paddles,
@@ -108,8 +106,7 @@ def main():
 
     left_paddle_bottom = LeftPaddle(
         angle=334,
-        kick_ratio=1.1,
-        rebound_ratio=0.91,
+        rebound_ratio=0.96,
         img=load_image('sprites/paddle_bottom_left.png'),
         paddles=paddles,
         all_sprites=all_sprites,
@@ -120,8 +117,7 @@ def main():
 
     right_paddle_bottom = RightPaddle(
         angle=382,
-        kick_ratio=1.1,
-        rebound_ratio=0.91,
+        rebound_ratio=0.96,
         img=load_image('sprites/paddle_bottom_right.png'),
         all_sprites=all_sprites,
         paddles=paddles,

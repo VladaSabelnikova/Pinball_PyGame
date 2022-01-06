@@ -14,7 +14,6 @@ class LeftPaddle(PaddleGlobal):
         self,
         angle: int,
         rebound_ratio: Union[int, float],
-        kick_ratio: float,
         img: pygame.image,
         paddles: pygame.sprite.Group,
         all_sprites: pygame.sprite.Group,
@@ -28,7 +27,6 @@ class LeftPaddle(PaddleGlobal):
         super().__init__(
             angle,
             rebound_ratio,
-            kick_ratio,
             img,
             paddles,
             all_sprites,
