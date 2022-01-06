@@ -17,20 +17,20 @@ class Shadow(pygame.sprite.Sprite):
     ) -> None:
         super().__init__(all_sprites)
         self.add(shadow)
-        self.coeff_fading = 0.972
+        self.coeff_fading = 0.970
         self.alpha = 255
-        self.image = pygame.Surface((12, 12), pygame.SRCALPHA, 32)
+        self.image = pygame.Surface((16, 16), pygame.SRCALPHA, 32)
         self.image.set_alpha(self.alpha)
         pygame.draw.circle(
             self.image,
             pygame.Color(0, 162, 255),
-            (6, 6),
-            6
+            (8, 8),
+            8
         )
         self.rect = self.image.get_rect()
 
-        self.rect.x = x + 14
-        self.rect.y = y + 14
+        self.rect.x = x + 12
+        self.rect.y = y + 12
 
     def update(self, *args: Tuple) -> None:
         """
