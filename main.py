@@ -143,6 +143,7 @@ def main():
                 running = False
 
             if event.type == pygame.KEYDOWN:
+                # print(event.key)
                 rotate = True
                 if event.key == KEY_LEFT:
                     left_paddle_top.rotate_up = rotate

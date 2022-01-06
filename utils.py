@@ -22,22 +22,16 @@ def load_image(name: str, colorkey=None) -> pygame.image:
 
 def get_reflected_vector(
     vector: List[Union[int, float]],
-    w_angle: int,
-    rebound_ratio: float
+    wall: pygame.sprite.Sprite,
+    *args: Tuple
 ) -> Tuple[Union[int, float], Union[int, float]]:
     """
     Функция возвращает новое направление вектора
     в случае столкновения со стеной.
-
-    :param vector: Текущее направление вектора.
-    :param w_angle: Угол поверхности,
-    с которой столкнулся вектор (изначально в градусах).
-    :param rebound_ratio: Сила отскока от препятствия.
-    :return: Новое направление вектора.
     """
 
     x, y = vector
-    wall_angle = radians(w_angle)
+    wall_angle = radians(wall.angle)
 
     # Длинна вектора является гипотенузой,
     # следовательно, по Т. Пифагора находим её длину.
@@ -116,7 +110,7 @@ def get_reflected_vector(
     new_vector_angle_sin = sin(-new_vector_angle)  # инвертируем обратно ось Y
     new_vector_angle_cos = cos(new_vector_angle)
 
-    new_vector_len = vector_len * rebound_ratio  # гасим отскок на коэффициент
+    new_vector_len = vector_len * wall.rebound_ratio  # гасим отскок на коэффициент
 
     new_x = new_vector_angle_cos * new_vector_len
     new_y = new_vector_angle_sin * new_vector_len
@@ -130,8 +124,8 @@ def get_reflected_vector(
 
 def get_reflected_vector_paddle(
     vector: List[Union[int, float]],
-    w_angle: int,
-    rebound_ratio: float
+    paddle: pygame.sprite.Sprite,
+    the_same: bool
 ) -> Tuple[Union[int, float], Union[int, float]]:
     """
     Функция возвращает новое направление вектора
@@ -145,7 +139,7 @@ def get_reflected_vector_paddle(
     """
 
     x, y = vector
-    wall_angle = radians(w_angle)
+    wall_angle = radians(paddle.angle)
 
     logger.debug(
         f'\nВходящий вектор   {x, y}\n'
@@ -191,26 +185,17 @@ def get_reflected_vector_paddle(
     # Значит нужно проверить два условия,
     # так как в этом случае диапазон делится на две части.
     if vector_angle > pi:
-        if vector_angle <= wall_angle <= pi * 2 or \
-            0 <= wall_angle <= not_collide_range:
-            logger.debug(
-                f'\nУгол вектора      {degrees(vector_angle) % 360}\n'
-                f'Вектор отскока    {x, y}\n'
-                f'wall_angle        {degrees(wall_angle) % 360}\n'
-                f'НЕТ СТОЛКНОВЕНИЯ\n'
-                f'----------------------------'
-            )
-            return x, y
+        if vector_angle <= wall_angle <= pi * 2 or 0 <= wall_angle <= not_collide_range:
+            if the_same:
+                vector_angle += pi
+            else:
+                return x, y
     else:  # В противном случае диапазон один.
         if vector_angle <= wall_angle <= not_collide_range:
-            logger.debug(
-                f'\nУгол вектора      {degrees(vector_angle) % 360}\n'
-                f'Вектор отскока    {x, y}\n'
-                f'wall_angle        {degrees(wall_angle) % 360}\n'
-                f'НЕТ СТОЛКНОВЕНИЯ\n'
-                f'----------------------------'
-            )
-            return x, y
+            if the_same:
+                vector_angle += pi
+            else:
+                return x, y
 
     # Находим угол столкновения по Т. О сумме углов треугольника.
     # pi - wall_angle — вычитаем из pi так как находим внутренний угол.
@@ -230,7 +215,7 @@ def get_reflected_vector_paddle(
     new_vector_angle_sin = sin(-new_vector_angle)  # инвертируем обратно ось Y
     new_vector_angle_cos = cos(new_vector_angle)
 
-    new_vector_len = vector_len * rebound_ratio  # гасим отскок на коэффициент
+    new_vector_len = vector_len * paddle.rebound_ratio  # гасим отскок на коэффициент
 
     new_x = new_vector_angle_cos * new_vector_len
     new_y = new_vector_angle_sin * new_vector_len

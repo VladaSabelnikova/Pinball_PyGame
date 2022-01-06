@@ -40,8 +40,7 @@ class Ball(pygame.sprite.Sprite):
         self.vx = 000
         self.vy = 200
 
-        self.was_a_jump = True
-
+        self.previous_barrier = None
 
         self.x = x
         self.y = y
@@ -88,13 +87,13 @@ class Ball(pygame.sprite.Sprite):
 
         # Если столкновение есть —
         # проходим по всем поверхностям и заменяем направление вектора.
-        if collides and self.was_a_jump:
+        if collides: #and self.was_a_jump:
             for barrier in collides:
                 logger.info(f'{barrier.name} {barrier.angle}')
                 temp_x, temp_y = func(
                     [self.vx, self.vy],
-                    barrier.angle,
-                    barrier.rebound_ratio
+                    barrier,
+                    self.previous_barrier == barrier
                 )
                 if (temp_x, temp_y) != (self.vx, self.vy):
                     vector_len = sqrt(temp_x ** 2 + temp_y ** 2)
@@ -104,8 +103,8 @@ class Ball(pygame.sprite.Sprite):
                         temp_y = temp_y * speed_ratio
 
                     self.vx, self.vy = temp_x, temp_y
-                    self.was_a_jump = False
+                    self.previous_barrier = barrier
                     break
-        else:
-            self.was_a_jump = True
+        # else:
+        #     self.was_a_jump = True
 
