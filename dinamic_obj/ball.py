@@ -6,7 +6,7 @@ import pygame
 from dinamic_obj.shadow import Shadow
 from settings import GRAVITY, BALL_PATH, MAX_SPEED
 from utils import load_image, get_reflected_vector, logger, \
-    get_reflected_vector_paddle
+    get_reflected_vector_paddle, get_reflected_vector_blot
 
 
 class Ball(pygame.sprite.Sprite):
@@ -49,6 +49,7 @@ class Ball(pygame.sprite.Sprite):
         self,
         paddles: pygame.sprite,
         walls: pygame.sprite,
+        blots,
         t: float,
         all_sprites: pygame.sprite.Group,
         shadow: pygame.sprite.Group,
@@ -70,6 +71,7 @@ class Ball(pygame.sprite.Sprite):
         screen.blit(self.image, (self.rect.x, self.rect.y))
         self.new_vector(walls, get_reflected_vector)
         self.new_vector(paddles, get_reflected_vector_paddle)
+        self.new_vector(blots, get_reflected_vector_blot)
 
     def new_vector(self, collide_surface: pygame.sprite, func) -> None:
 
@@ -89,7 +91,7 @@ class Ball(pygame.sprite.Sprite):
         # проходим по всем поверхностям и заменяем направление вектора.
         if collides: #and self.was_a_jump:
             for barrier in collides:
-                logger.debug(f'{barrier.name} {barrier.angle}')
+                # logger.debug(f'{barrier.name} {barrier.angle}')
                 temp_x, temp_y = func(
                     [self.vx, self.vy],
                     barrier,

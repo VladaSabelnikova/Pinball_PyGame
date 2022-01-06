@@ -5,7 +5,7 @@ from typing import List, Union, Tuple
 import pygame
 
 from log import create_logger
-from settings import LOG_LEVEL
+from settings import LOG_LEVEL, BREAKING_POINT
 
 
 def load_image(name: str, colorkey=None) -> pygame.image:
@@ -125,7 +125,8 @@ def get_reflected_vector(
 def get_reflected_vector_paddle(
     vector: List[Union[int, float]],
     paddle: pygame.sprite.Sprite,
-    the_same: bool
+    the_same: bool,
+    *args: Tuple,
 ) -> Tuple[Union[int, float], Union[int, float]]:
     """
     Функция возвращает новое направление вектора
@@ -239,5 +240,27 @@ def get_reflected_vector_paddle(
 
     return new_x, new_y
 
+
+def get_reflected_vector_blot(
+    vector: List[Union[int, float]],
+    blot: pygame.sprite.Sprite,
+    *args: Tuple,
+) -> Tuple[Union[int, float], Union[int, float]]:
+
+    x, y = vector
+    new_x, new_y = x, y
+
+    if not blot.was_collision:
+        vector_len = sqrt(x ** 2 + y ** 2)
+
+        if vector_len >= BREAKING_POINT:
+            blot.was_collision = True
+            new_x *= 0
+            new_y *= 0
+        else:
+            new_x *= -blot.rebound_ratio
+            new_y *= -blot.rebound_ratio
+
+    return new_x, new_y
 
 logger = create_logger(name=__name__, level=LOG_LEVEL)
