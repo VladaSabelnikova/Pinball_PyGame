@@ -1,4 +1,5 @@
-from typing import Union
+from math import sqrt, asin, acos, pi, degrees
+from typing import Union, Tuple
 
 import pygame
 
@@ -9,6 +10,7 @@ class Blot(pygame.sprite.Sprite):
 
     def __init__(
         self,
+        center_circle: Tuple[Union[int, float], Union[int, float]],
         rebound_ratio: Union[int, float],
         img: pygame.image,
         blots: pygame.sprite.Group,
@@ -26,6 +28,7 @@ class Blot(pygame.sprite.Sprite):
         self.name = name
 
         self.rebound_ratio = rebound_ratio
+        self.center_circle = center_circle
 
         self.frames = []
         self.cut_sheet(img, columns, rows)
@@ -39,6 +42,7 @@ class Blot(pygame.sprite.Sprite):
         self.static_rebound_ratio = rebound_ratio
 
         self.was_collision = False
+        self.angle = None
 
     def cut_sheet(
         self,
@@ -60,3 +64,32 @@ class Blot(pygame.sprite.Sprite):
             self.cur_frame = min(self.cur_frame + 1, len(self.frames) - 1)
             self.image = self.frames[int(self.cur_frame)]
             self.mask = pygame.mask.from_surface(self.image)
+
+    def creation_angle(self, ball) -> None:
+        x_ball, y_ball = ball.x + ball.radius, ball.y + ball.radius
+        x_blot, y_blot = self.center_circle
+
+        x_vector, y_vector = x_blot - x_ball, y_blot - y_ball
+
+        vector_len = sqrt(x_vector ** 2 + y_vector ** 2)
+
+        if x_vector > 0 and y_vector <= 0:  # если вектор направлен в 1-ю координатную четверть
+            vector_sin = -y_vector / vector_len
+            vector_angle = asin(vector_sin)
+
+        elif x_vector <= 0 and y_vector < 0:  # если вектор направлен в 2-ю координатную четверть
+            vector_cos = x_vector / vector_len
+            vector_angle = acos(vector_cos)
+
+        elif x_vector < 0 and y_vector >= 0:  # если вектор направлен в 3-ю координатную четверть
+            vector_cos = x_vector / vector_len
+            vector_angle = -acos(vector_cos)
+            vector_angle += pi * 2  # вычисляем размер угла из отрицательного
+
+        elif x_vector >= 0 and y_vector > 0:  # если вектор направлен в 4-ю координатную четверть
+            vector_sin = -y_vector / vector_len
+            vector_angle = asin(vector_sin)
+            vector_angle += pi * 2  # вычисляем размер угла из отрицательного
+
+        self.angle = degrees(vector_angle - (pi / 2))
+        print('blot.angle — ', self.angle)

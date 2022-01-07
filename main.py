@@ -23,7 +23,8 @@ def main():
     blots = pygame.sprite.Group()
 
     Blot(
-        rebound_ratio=0.61,
+        center_circle=(80, 118),
+        rebound_ratio=0.81,
         img=load_image('sprites/blot_1.png'),
         blots=blots,
         all_sprites=all_sprites,
