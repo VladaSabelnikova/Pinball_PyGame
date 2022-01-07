@@ -95,7 +95,8 @@ class Ball(pygame.sprite.Sprite):
                 temp_x, temp_y = func(
                     [self.vx, self.vy],
                     barrier,
-                    self.previous_barrier == barrier
+                    self.previous_barrier == barrier,
+                    self
                 )
                 if (temp_x, temp_y) != (self.vx, self.vy):
                     vector_len = sqrt(temp_x ** 2 + temp_y ** 2)
@@ -107,6 +108,3 @@ class Ball(pygame.sprite.Sprite):
                     self.vx, self.vy = temp_x, temp_y
                     self.previous_barrier = barrier
                     break
-        # else:
-        #     self.was_a_jump = True
-

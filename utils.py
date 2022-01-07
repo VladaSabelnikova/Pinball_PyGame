@@ -247,6 +247,7 @@ def get_reflected_vector_blot(
     *args: Tuple,
 ) -> Tuple[Union[int, float], Union[int, float]]:
 
+    ball = args[-1]
     x, y = vector
     new_x, new_y = x, y
 
@@ -258,9 +259,10 @@ def get_reflected_vector_blot(
             new_x *= 0
             new_y *= 0
         else:
-            new_x *= -blot.rebound_ratio
-            new_y *= -blot.rebound_ratio
+            blot.creation_angle(ball)
+            new_x, new_y = get_reflected_vector(vector, blot)
 
     return new_x, new_y
 
 logger = create_logger(name=__name__, level=LOG_LEVEL)
+
