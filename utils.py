@@ -61,6 +61,7 @@ def get_reflected_vector(
         vector_sin = -y / vector_len
         vector_angle = asin(vector_sin)
         vector_angle += pi * 2  # вычисляем размер угла из отрицательного
+    print('vector_angle — ', degrees(vector_angle))
 
     # Есть диапазон углов, с которым вектор гарантировано не будет пересекаться
     # Нам нужно проверить, не входит ли угол поверхности в этот диапазон.
@@ -214,10 +215,10 @@ def get_reflected_vector_paddle(
     else:
         new_vector_angle = collide_angle + wall_angle
 
-    if the_same and follow:
-        print(degrees(wall_angle), degrees(new_vector_angle))
-    else:
-        print()
+    # if the_same and follow:
+    #     print(degrees(wall_angle), degrees(new_vector_angle))
+    # else:
+    #     print()
 
     logger.debug(
         f'\nУгол вектора      {degrees(vector_angle) % 360}\n'
@@ -260,6 +261,7 @@ def get_reflected_vector_blot(
             new_y *= 0
         else:
             blot.creation_angle(ball)
+            # print(blot.angle)
             new_x, new_y = get_reflected_vector(vector, blot)
 
     return new_x, new_y

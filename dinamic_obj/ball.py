@@ -37,13 +37,13 @@ class Ball(pygame.sprite.Sprite):
         # self.vx = random.randint(-500, 500)
         # self.vy = random.randint(-500, 500)
 
-        self.vx = 000
-        self.vy = 200
+        self.vx = -1000
+        self.vy = -1200
 
         self.previous_barrier = None
 
-        self.x = x
-        self.y = y
+        self.x = 0
+        self.y = 200
 
     def update(
         self,

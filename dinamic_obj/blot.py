@@ -1,4 +1,4 @@
-from math import sqrt, asin, acos, pi
+from math import sqrt, asin, acos, pi, degrees
 from typing import Union, Tuple
 
 import pygame
@@ -91,4 +91,5 @@ class Blot(pygame.sprite.Sprite):
             vector_angle = asin(vector_sin)
             vector_angle += pi * 2  # вычисляем размер угла из отрицательного
 
-        self.angle = vector_angle + (pi / 2)
+        self.angle = degrees(vector_angle - (pi / 2))
+        print('blot.angle — ', self.angle)
