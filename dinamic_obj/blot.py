@@ -64,9 +64,13 @@ class Blot(pygame.sprite.Sprite):
     def update(self, *args):
         *_, t = args[:4]
         if self.was_collision:
-            if int(self.cur_frame) > 4:
-                self.speed = max(self.downswing, 1)
-                self.downswing -= .05
+            if 4 < int(self.cur_frame) < 15:
+                self.speed = max(self.downswing, 15)
+                self.downswing *= .99
+            elif int(self.cur_frame) >= 15:
+                self.speed = max(self.downswing, 3)
+                self.downswing *= .99
+
             self.cur_frame += self.speed * t
             self.cur_frame = min(self.cur_frame, len(self.frames) - 1)
             self.image = self.frames[int(self.cur_frame)]
