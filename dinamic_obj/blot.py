@@ -3,7 +3,7 @@ from typing import Union, Tuple
 
 import pygame
 
-from settings import PADDLE_SPEED
+from settings import PADDLE_SPEED, BLOT_SPEED
 
 
 class Blot(pygame.sprite.Sprite):
@@ -37,12 +37,14 @@ class Blot(pygame.sprite.Sprite):
         self.rect = self.rect.move(x, y)
         self.mask = pygame.mask.from_surface(self.image)
 
-        self.speed = PADDLE_SPEED
-        self.kick_ratio = 1.07 * PADDLE_SPEED / 200
+        self.speed = BLOT_SPEED
+        self.kick_ratio = 1.07 * BLOT_SPEED / 200
         self.static_rebound_ratio = rebound_ratio
 
         self.was_collision = False
         self.angle = None
+
+        self.downswing = BLOT_SPEED
 
     def cut_sheet(
         self,
@@ -60,12 +62,17 @@ class Blot(pygame.sprite.Sprite):
                     frame_location, self.rect.size)))
 
     def update(self, *args):
+        *_, t = args[:4]
         if self.was_collision:
-            self.cur_frame = min(self.cur_frame + 1, len(self.frames) - 1)
+            if int(self.cur_frame) > 4:
+                self.speed = max(self.downswing, 1)
+                self.downswing -= .05
+            self.cur_frame += self.speed * t
+            self.cur_frame = min(self.cur_frame, len(self.frames) - 1)
             self.image = self.frames[int(self.cur_frame)]
             self.mask = pygame.mask.from_surface(self.image)
 
-    def creation_angle(self, ball) -> None:
+    def creation_angle(self, ball: pygame.sprite.Sprite) -> None:
         x_ball, y_ball = ball.x + ball.radius, ball.y + ball.radius
         x_blot, y_blot = self.center_circle
 

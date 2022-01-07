@@ -267,4 +267,3 @@ def get_reflected_vector_blot(
     return new_x, new_y
 
 logger = create_logger(name=__name__, level=LOG_LEVEL)
-

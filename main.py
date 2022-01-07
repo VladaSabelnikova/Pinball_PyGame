@@ -23,14 +23,14 @@ def main():
     blots = pygame.sprite.Group()
 
     Blot(
-        center_circle=(80, 118),
+        center_circle=(106, 100),
         rebound_ratio=0.81,
-        img=load_image('sprites/blot_1.png'),
+        img=load_image('sprites/blot_106_100.png'),
         blots=blots,
         all_sprites=all_sprites,
-        name='Test_Clycs',
-        columns=2,
-        rows=1
+        name='blot_106_100',
+        columns=9,
+        rows=2
     )
 
     Wall(
