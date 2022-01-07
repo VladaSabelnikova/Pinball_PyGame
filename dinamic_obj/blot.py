@@ -34,6 +34,7 @@ class Blot(pygame.sprite.Sprite):
         self.cut_sheet(img, columns, rows)
         self.cur_frame = 0
         self.image = self.frames[self.cur_frame]
+
         self.rect = self.rect.move(x, y)
         self.mask = pygame.mask.from_surface(self.image)
 

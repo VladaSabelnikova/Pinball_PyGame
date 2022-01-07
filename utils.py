@@ -257,7 +257,7 @@ def get_reflected_vector_blot(
 
         if vector_len >= BREAKING_POINT:
             blot.was_collision = True
-            new_x *= 0
+            new_x *= .35
             new_y *= 0
         else:
             blot.creation_angle(ball)
