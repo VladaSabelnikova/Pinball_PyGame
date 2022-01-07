@@ -43,7 +43,7 @@ class PaddleGlobal(pygame.sprite.Sprite):
         self.rotate_up = False
 
         self.speed = PADDLE_SPEED
-        self.kick_ratio = 1.07 * PADDLE_SPEED / 200
+        self.kick_ratio = 1 + (self.speed - 100) / 1000
         self.static_rebound_ratio = rebound_ratio
 
     def cut_sheet(
