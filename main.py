@@ -10,11 +10,17 @@ layers = {
 
 
 def main():
-    result = start()
-    if result:
-        score = layers[result]()
-        if score:
-            stop(score)
+    while True:
+        result = start()
+        if result:
+            score = layers[result]()
+            if score:
+                user_choice = stop(score)
+                if user_choice:
+                    if user_choice == 'Закончить':
+                        break
+                else:
+                    break
 
 
 if __name__ == '__main__':
