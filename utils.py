@@ -252,18 +252,32 @@ def get_reflected_vector_blot(
     x, y = vector
     new_x, new_y = x, y
 
-    if not blot.was_collision:
+    if not blot.broken:
         vector_len = sqrt(x ** 2 + y ** 2)
 
         if vector_len >= BREAKING_POINT:
-            blot.was_collision = True
+            blot.broken = True
             new_x *= .35
             new_y *= 0
         else:
             blot.creation_angle(ball)
             # print(blot.angle)
             new_x, new_y = get_reflected_vector(vector, blot)
+            # new_x, new_y = get_reflected_vector_paddle(vector, blot, False)
 
     return new_x, new_y
+
+
+def get_reflected_vector_bumper(
+    vector: List[Union[int, float]],
+    bumper: pygame.sprite.Sprite,
+    *args: Tuple,
+) -> Tuple[Union[int, float], Union[int, float]]:
+
+    ball = args[-1]
+    bumper.creation_angle(ball)
+    new_x, new_y = get_reflected_vector(vector, bumper)
+    return new_x, new_y
+
 
 logger = create_logger(name=__name__, level=LOG_LEVEL)
