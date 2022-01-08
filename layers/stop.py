@@ -16,7 +16,7 @@ def stop(result):
 
     f1 = pygame.font.Font(None, 36)
     text = f1.render(f'Ваш результат: {result}', True, (100, 100, 100))
-    place = text.get_rect(center=(250, 120))
+    place = text.get_rect(center=(250, 240))
 
     anew = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect((60, 560), (180, 60)),
