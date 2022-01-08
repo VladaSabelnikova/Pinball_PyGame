@@ -22,7 +22,7 @@ def simple():
 
     ball = Ball(20, gravity=SIMPLE_GRAVITY)
 
-    game_loop(
+    result = game_loop(
         all_sprites,
         left_paddle_top,
         left_paddle_bottom,
@@ -36,6 +36,8 @@ def simple():
         shadow,
         ball
     )
+
+    return result
 
 
 def average():
@@ -51,7 +53,7 @@ def average():
 
     ball = Ball(20, gravity=AVERAGE_GRAVITY)
 
-    game_loop(
+    result = game_loop(
         all_sprites,
         left_paddle_top,
         left_paddle_bottom,
@@ -65,6 +67,8 @@ def average():
         shadow,
         ball
     )
+
+    return result
 
 
 def nightmare():
@@ -82,7 +86,7 @@ def nightmare():
 
     ball = Ball(20, gravity=NIGHTMARE_GRAVITY)
 
-    game_loop(
+    result = game_loop(
         all_sprites,
         left_paddle_top,
         left_paddle_bottom,
@@ -96,6 +100,8 @@ def nightmare():
         shadow,
         ball
     )
+
+    return result
 
 
 def game_loop(
@@ -114,14 +120,14 @@ def game_loop(
 ):
     ball_pause = BALL_PAUSE
 
-    running = True
     rotate = False
     clock = pygame.time.Clock()
     t = None
-    while running:
+    game_time = 0
+    while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                running = False
+                return None
 
             if event.type == pygame.KEYDOWN:
                 rotate = True
@@ -143,14 +149,23 @@ def game_loop(
         screen.fill((40, 40, 40))
         all_sprites.draw(screen)
         t = clock.tick() / 1000
-        if not ball.groups():
+        game_time += t
+        blot_broken = all([el.broken for el in blots.sprites()])
+        if not ball.groups() and not blot_broken:
             ball_pause -= t
             if ball_pause <= 0:
                 ball_pause = BALL_PAUSE
                 ball.position_creation()
                 ball.add(all_sprites)
+        if blot_broken:  # победа
+            ball_pause -= t
+            if ball_pause <= 0:
+                return int(100_000 / game_time)
+        if ball.y >= 700:  # лузер
+            ball_pause -= t
+            if ball_pause <= 0:
+                return -1
         all_sprites.update(paddles, walls, blots, bumpers, t, all_sprites,
                            shadow, screen)
         pygame.display.flip()
-
     pygame.quit()
