@@ -1,5 +1,5 @@
 from math import degrees, asin, pi, acos, sqrt
-from typing import Union
+from typing import Union, List
 
 import pygame
 
@@ -13,6 +13,7 @@ class Bumper(pygame.sprite.Sprite):
 
     def __init__(
         self,
+        center_circle: List[Union[int, float], Union[int, float]],
         rebound_ratio: Union[int, float],
         img: str,
         all_sprites: pygame.sprite.Group,
@@ -27,6 +28,8 @@ class Bumper(pygame.sprite.Sprite):
 
         # self.angle = angle
         self.rebound_ratio = rebound_ratio
+
+        self.center_circle = center_circle
 
         self.image = load_image(img)
         if self.image:
