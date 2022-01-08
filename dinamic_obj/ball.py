@@ -6,7 +6,8 @@ import pygame
 from dinamic_obj.shadow import Shadow
 from settings import GRAVITY, BALL_PATH, MAX_SPEED
 from utils import load_image, get_reflected_vector, logger, \
-    get_reflected_vector_paddle, get_reflected_vector_blot
+    get_reflected_vector_paddle, get_reflected_vector_blot, \
+    get_reflected_vector_bumper
 
 
 class Ball(pygame.sprite.Sprite):
@@ -59,6 +60,7 @@ class Ball(pygame.sprite.Sprite):
         paddles: pygame.sprite,
         walls: pygame.sprite,
         blots,
+        bumpers,
         t: float,
         all_sprites: pygame.sprite.Group,
         shadow: pygame.sprite.Group,
@@ -81,6 +83,7 @@ class Ball(pygame.sprite.Sprite):
         self.new_vector(walls, get_reflected_vector)
         self.new_vector(paddles, get_reflected_vector_paddle)
         self.new_vector(blots, get_reflected_vector_blot)
+        self.new_vector(bumpers, get_reflected_vector_bumper)
 
     def new_vector(self, collide_surface: pygame.sprite, func) -> None:
 

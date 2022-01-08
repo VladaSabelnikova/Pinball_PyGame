@@ -62,7 +62,7 @@ class Blot(pygame.sprite.Sprite):
                     frame_location, self.rect.size)))
 
     def update(self, *args):
-        *_, t = args[:4]
+        *_, t = args[:5]
         if self.broken:
             if 4 < int(self.cur_frame) < 15:
                 self.speed = max(self.downswing, 15)

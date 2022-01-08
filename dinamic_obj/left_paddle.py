@@ -40,7 +40,7 @@ class LeftPaddle(PaddleGlobal):
         self.step_angle = 3
 
     def update(self, *args: Tuple) -> None:
-        *_, t = args[:4]
+        *_, t = args[:5]
         prev_frame = int(self.cur_frame)
         if self.rotate_up:
             self.cur_frame += self.speed * t

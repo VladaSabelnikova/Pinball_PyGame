@@ -215,7 +215,7 @@ def main():
         screen.fill((40, 40, 40))
         all_sprites.draw(screen)
         t = clock.tick() / 1000
-        all_sprites.update(paddles, walls, blots, t, all_sprites, shadow, screen)
+        all_sprites.update(paddles, walls, blots, bumpers, t, all_sprites, shadow, screen)
         pygame.display.flip()
 
     pygame.quit()
