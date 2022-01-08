@@ -104,4 +104,6 @@ class Blot(pygame.sprite.Sprite):
             vector_angle += pi * 2  # вычисляем размер угла из отрицательного
 
         self.angle = degrees(vector_angle - (pi / 2))
+        if self.angle < 0:
+            self.angle += 360
         print('blot.angle — ', self.angle)

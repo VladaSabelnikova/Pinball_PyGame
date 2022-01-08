@@ -61,7 +61,7 @@ def get_reflected_vector(
         vector_sin = -y / vector_len
         vector_angle = asin(vector_sin)
         vector_angle += pi * 2  # вычисляем размер угла из отрицательного
-    print('vector_angle — ', degrees(vector_angle))
+    # print('vector_angle — ', degrees(vector_angle))
 
     # Есть диапазон углов, с которым вектор гарантировано не будет пересекаться
     # Нам нужно проверить, не входит ли угол поверхности в этот диапазон.
