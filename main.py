@@ -21,6 +21,7 @@ def main():
 
     paddles = pygame.sprite.Group()
     blots = pygame.sprite.Group()
+    bumpers = pygame.sprite.Group()
 
     Blot(
         center_circle=(250, 100),

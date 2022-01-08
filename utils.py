@@ -267,4 +267,17 @@ def get_reflected_vector_blot(
 
     return new_x, new_y
 
+
+def get_reflected_vector_bumper(
+    vector: List[Union[int, float]],
+    bumper: pygame.sprite.Sprite,
+    *args: Tuple,
+) -> Tuple[Union[int, float], Union[int, float]]:
+
+    ball = args[-1]
+    bumper.creation_angle(ball)
+    new_x, new_y = get_reflected_vector(vector, bumper)
+    return new_x, new_y
+
+
 logger = create_logger(name=__name__, level=LOG_LEVEL)
