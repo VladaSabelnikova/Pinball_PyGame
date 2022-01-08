@@ -4,7 +4,7 @@ from math import sqrt
 import pygame
 
 from dinamic_obj.shadow import Shadow
-from settings import GRAVITY, BALL_PATH, MAX_SPEED
+from settings import SIMPLE_GRAVITY, BALL_PATH, MAX_SPEED
 from utils import load_image, get_reflected_vector, logger, \
     get_reflected_vector_paddle, get_reflected_vector_blot, \
     get_reflected_vector_bumper
@@ -19,11 +19,14 @@ class Ball(pygame.sprite.Sprite):
         self,
         radius: int,
         all_sprites: pygame.sprite.Group,
-        pause: bool=False
+        pause: bool=False,
+        gravity=SIMPLE_GRAVITY
     ) -> None:
 
         super().__init__(all_sprites)
         self.radius = radius
+
+        self.gravity = gravity
 
         image = load_image(BALL_PATH)
         self.image = pygame.transform.scale(image, (radius * 2, radius * 2))
@@ -63,13 +66,13 @@ class Ball(pygame.sprite.Sprite):
         t: float,
         all_sprites: pygame.sprite.Group,
         shadow: pygame.sprite.Group,
-        screen: pygame.display,
+        screen: pygame.display
     ) -> None:
 
         self.x += self.vx * t
         self.y += self.vy * t
 
-        self.vy += GRAVITY * t
+        self.vy += self.gravity * t
 
         self.rect.x = int(self.x)
         self.rect.y = int(self.y)
