@@ -39,7 +39,6 @@ class Blot(pygame.sprite.Sprite):
         self.mask = pygame.mask.from_surface(self.image)
 
         self.speed = BLOT_SPEED
-        self.kick_ratio = 1.07 * BLOT_SPEED / 200
         self.static_rebound_ratio = rebound_ratio
 
         self.was_collision = False
