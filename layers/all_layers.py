@@ -119,6 +119,7 @@ def game_loop(
     ball
 ):
     ball_pause = BALL_PAUSE
+    balls_for_play = 2
 
     rotate = False
     clock = pygame.time.Clock()
@@ -150,21 +151,26 @@ def game_loop(
         all_sprites.draw(screen)
         t = clock.tick() / 1000
         game_time += t
-        blot_broken = all([el.broken for el in blots.sprites()])
-        if not ball.groups() and not blot_broken:
+        all_blots_broken = all([blot.broken for blot in blots.sprites()])
+        if not ball.groups() and not all_blots_broken:
             ball_pause -= t
             if ball_pause <= 0:
                 ball_pause = BALL_PAUSE
                 ball.position_creation()
                 ball.add(all_sprites)
-        if blot_broken:  # победа
+        if all_blots_broken:  # победа
             ball_pause -= t
             if ball_pause <= 0:
                 return int(100_000 / game_time)
         if ball.y >= 700:  # лузер
             ball_pause -= t
             if ball_pause <= 0:
-                return -1
+                if balls_for_play:
+                    ball_pause = BALL_PAUSE
+                    balls_for_play -= 1
+                    ball.position_creation()
+                else:
+                    return -1
         all_sprites.update(paddles, walls, blots, bumpers, t, all_sprites,
                            shadow, screen)
         pygame.display.flip()
