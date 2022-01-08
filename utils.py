@@ -263,6 +263,7 @@ def get_reflected_vector_blot(
             blot.creation_angle(ball)
             # print(blot.angle)
             new_x, new_y = get_reflected_vector(vector, blot)
+            # new_x, new_y = get_reflected_vector_paddle(vector, blot, False)
 
     return new_x, new_y
 
