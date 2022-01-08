@@ -3,6 +3,7 @@ from typing import Union, List
 
 import pygame
 
+from settings import BUMP_REBOUND_RATIO
 from utils import load_image
 
 
@@ -14,7 +15,6 @@ class Bumper(pygame.sprite.Sprite):
     def __init__(
         self,
         center_circle: List[Union[int, float]],
-        rebound_ratio: Union[int, float],
         img: str,
         all_sprites: pygame.sprite.Group,
         bumpers: pygame.sprite.Group,
@@ -27,7 +27,7 @@ class Bumper(pygame.sprite.Sprite):
         self.name = name
 
         # self.angle = angle
-        self.rebound_ratio = rebound_ratio
+        self.rebound_ratio = BUMP_REBOUND_RATIO
 
         self.center_circle = center_circle
 

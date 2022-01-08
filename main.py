@@ -26,7 +26,6 @@ def main():
 
     Bumper(
         center_circle=[250, 330],
-        rebound_ratio=0.91,
         img='images/bumper_center_250_330.png',
         all_sprites=all_sprites,
         bumpers=bumpers,
@@ -35,7 +34,6 @@ def main():
 
     Bumper(
         center_circle=[-270, 307],
-        rebound_ratio=0.81,
         img='images/bumper_left_-270_307.png',
         all_sprites=all_sprites,
         bumpers=bumpers,
@@ -44,7 +42,6 @@ def main():
 
     Bumper(
         center_circle=[770, 307],
-        rebound_ratio=0.91,
         img='images/bumper_right_770_307.png',
         all_sprites=all_sprites,
         bumpers=bumpers,
