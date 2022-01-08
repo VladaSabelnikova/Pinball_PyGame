@@ -247,7 +247,6 @@ def get_reflected_vector_blot(
     blot: pygame.sprite.Sprite,
     *args: Tuple,
 ) -> Tuple[Union[int, float], Union[int, float]]:
-
     ball = args[-1]
     x, y = vector
     new_x, new_y = x, y
@@ -257,8 +256,7 @@ def get_reflected_vector_blot(
 
         if vector_len >= BREAKING_POINT:
             blot.broken = True
-            new_x *= .35
-            new_y *= 0
+            ball.kill()
         else:
             blot.creation_angle(ball)
             # print(blot.angle)
@@ -273,7 +271,6 @@ def get_reflected_vector_bumper(
     bumper: pygame.sprite.Sprite,
     *args: Tuple,
 ) -> Tuple[Union[int, float], Union[int, float]]:
-
     ball = args[-1]
     bumper.creation_angle(ball)
     new_x, new_y = get_reflected_vector(vector, bumper)

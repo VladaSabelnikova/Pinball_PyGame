@@ -6,7 +6,7 @@ from dinamic_obj.left_paddle import LeftPaddle
 # from dinamic_obj.left_paddle_bottom import LeftPaddleBottom
 # from dinamic_obj.left_paddle_top import LeftPaddleTop
 from dinamic_obj.right_paddle import RightPaddle
-from settings import KEY_LEFT, KEY_RIGHT
+from settings import KEY_LEFT, KEY_RIGHT, BALL_PAUSE
 from static_obj.bumper import Bumper
 from static_obj.wall import Wall
 from utils import load_image
@@ -24,13 +24,13 @@ def main():
     blots = pygame.sprite.Group()
     bumpers = pygame.sprite.Group()
 
-    Bumper(
-        center_circle=[250, 330],
-        img='images/bumper_center_250_330.png',
-        all_sprites=all_sprites,
-        bumpers=bumpers,
-        name='bumper_center_250_330'
-    )
+    # Bumper(
+    #     center_circle=[250, 330],
+    #     img='images/bumper_center_250_330.png',
+    #     all_sprites=all_sprites,
+    #     bumpers=bumpers,
+    #     name='bumper_center_250_330'
+    # )
 
     Bumper(
         center_circle=[-270, 307],
@@ -208,8 +208,8 @@ def main():
         rows=2  # !!!
     )
 
-    for i in range(1):
-        Ball(20, 200, 200, all_sprites)
+    ball = Ball(20, all_sprites)
+    ball_pause = BALL_PAUSE
 
     running = True
     rotate = False
@@ -242,6 +242,12 @@ def main():
         screen.fill((40, 40, 40))
         all_sprites.draw(screen)
         t = clock.tick() / 1000
+        if not ball.groups():
+            ball_pause -= t
+            if ball_pause <= 0:
+                ball_pause = BALL_PAUSE
+                ball.position_creation()
+                ball.add(all_sprites)
         all_sprites.update(paddles, walls, blots, bumpers, t, all_sprites, shadow, screen)
         pygame.display.flip()
 

@@ -18,9 +18,8 @@ class Ball(pygame.sprite.Sprite):
     def __init__(
         self,
         radius: int,
-        x: int,
-        y: int,
-        all_sprites: pygame.sprite.Group
+        all_sprites: pygame.sprite.Group,
+        pause: bool=False
     ) -> None:
 
         super().__init__(all_sprites)
