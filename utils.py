@@ -252,11 +252,11 @@ def get_reflected_vector_blot(
     x, y = vector
     new_x, new_y = x, y
 
-    if not blot.was_collision:
+    if not blot.broken:
         vector_len = sqrt(x ** 2 + y ** 2)
 
         if vector_len >= BREAKING_POINT:
-            blot.was_collision = True
+            blot.broken = True
             new_x *= .35
             new_y *= 0
         else:

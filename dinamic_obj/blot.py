@@ -41,7 +41,7 @@ class Blot(pygame.sprite.Sprite):
         self.speed = BLOT_SPEED
         self.static_rebound_ratio = rebound_ratio
 
-        self.was_collision = False
+        self.broken = False
         self.angle = None
 
         self.downswing = BLOT_SPEED
@@ -63,7 +63,7 @@ class Blot(pygame.sprite.Sprite):
 
     def update(self, *args):
         *_, t = args[:4]
-        if self.was_collision:
+        if self.broken:
             if 4 < int(self.cur_frame) < 15:
                 self.speed = max(self.downswing, 15)
                 self.downswing *= .99
