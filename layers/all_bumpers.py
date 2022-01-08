@@ -1,3 +1,4 @@
+from settings import BUMP_REBOUND_RATIO_LATERAL, BUMP_REBOUND_RATIO_CENTER
 from static_obj.bumper import Bumper
 
 
@@ -7,7 +8,8 @@ def add_center_bumper(all_sprites, bumpers):
         img='images/bumper_center_250_330.png',
         all_sprites=all_sprites,
         bumpers=bumpers,
-        name='bumper_center_250_330'
+        name='bumper_center_250_330',
+        rebound_ratio=BUMP_REBOUND_RATIO_CENTER
     )
 
 
@@ -17,7 +19,8 @@ def add_lateral_bumper(all_sprites, bumpers):
         img='images/bumper_left_-270_307.png',
         all_sprites=all_sprites,
         bumpers=bumpers,
-        name='bumper_left_-270_307'
+        name='bumper_left_-270_307',
+        rebound_ratio=BUMP_REBOUND_RATIO_LATERAL
     )
 
     Bumper(
@@ -25,5 +28,6 @@ def add_lateral_bumper(all_sprites, bumpers):
         img='images/bumper_right_770_307.png',
         all_sprites=all_sprites,
         bumpers=bumpers,
-        name='bumper_right_770_307'
+        name='bumper_right_770_307',
+        rebound_ratio=BUMP_REBOUND_RATIO_LATERAL
     )

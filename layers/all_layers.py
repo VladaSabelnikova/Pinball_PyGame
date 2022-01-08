@@ -20,7 +20,7 @@ def simple():
     left_paddle_top, right_paddle_top, \
     left_paddle_bottom, right_paddle_bottom = creation_paddles(all_sprites,  paddles)
 
-    ball = Ball(20, all_sprites, gravity=SIMPLE_GRAVITY)
+    ball = Ball(20, gravity=SIMPLE_GRAVITY)
 
     game_loop(
         all_sprites,
@@ -49,7 +49,7 @@ def average():
     left_paddle_top, right_paddle_top, \
     left_paddle_bottom, right_paddle_bottom = creation_paddles(all_sprites,  paddles)
 
-    ball = Ball(20, all_sprites, gravity=AVERAGE_GRAVITY)
+    ball = Ball(20, gravity=AVERAGE_GRAVITY)
 
     game_loop(
         all_sprites,
@@ -80,7 +80,7 @@ def nightmare():
     left_paddle_bottom, right_paddle_bottom = creation_paddles(all_sprites,
                                                                paddles)
 
-    ball = Ball(20, all_sprites, gravity=NIGHTMARE_GRAVITY)
+    ball = Ball(20, gravity=NIGHTMARE_GRAVITY)
 
     game_loop(
         all_sprites,

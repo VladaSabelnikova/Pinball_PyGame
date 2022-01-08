@@ -18,12 +18,10 @@ class Ball(pygame.sprite.Sprite):
     def __init__(
         self,
         radius: int,
-        all_sprites: pygame.sprite.Group,
-        pause: bool=False,
         gravity=SIMPLE_GRAVITY
     ) -> None:
 
-        super().__init__(all_sprites)
+        super().__init__()
         self.radius = radius
 
         self.gravity = gravity
