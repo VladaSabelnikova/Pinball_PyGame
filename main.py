@@ -7,6 +7,7 @@ from dinamic_obj.left_paddle import LeftPaddle
 # from dinamic_obj.left_paddle_top import LeftPaddleTop
 from dinamic_obj.right_paddle import RightPaddle
 from settings import KEY_LEFT, KEY_RIGHT
+from static_obj.bumper import Bumper
 from static_obj.wall import Wall
 from utils import load_image
 
@@ -22,6 +23,34 @@ def main():
     paddles = pygame.sprite.Group()
     blots = pygame.sprite.Group()
     bumpers = pygame.sprite.Group()
+
+    Bumper(
+        center_circle=[250, 330],
+        rebound_ratio=0.91,
+        img='images/bumper_center_250_330.png',
+        all_sprites=all_sprites,
+        bumpers=bumpers,
+        name='bumper_center_250_330'
+    )
+
+    Bumper(
+        center_circle=[-270, 307],
+        rebound_ratio=0.81,
+        img='images/bumper_left_-270_307.png',
+        all_sprites=all_sprites,
+        bumpers=bumpers,
+        name='bumper_left_-270_307'
+    )
+
+    Bumper(
+        center_circle=[770, 307],
+        rebound_ratio=0.91,
+        img='images/bumper_right_770_307.png',
+        all_sprites=all_sprites,
+        bumpers=bumpers,
+        name='bumper_right_770_307'
+    )
+
 
     Blot(
         center_circle=(250, 100),
@@ -55,6 +84,7 @@ def main():
         columns=9,
         rows=2
     )
+
 
     Wall(
         angle=90,

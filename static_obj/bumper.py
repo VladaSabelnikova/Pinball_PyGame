@@ -13,7 +13,7 @@ class Bumper(pygame.sprite.Sprite):
 
     def __init__(
         self,
-        center_circle: List[Union[int, float], Union[int, float]],
+        center_circle: List[Union[int, float]],
         rebound_ratio: Union[int, float],
         img: str,
         all_sprites: pygame.sprite.Group,
