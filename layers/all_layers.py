@@ -7,7 +7,7 @@ from layers.all_paddles import creation_paddles
 from layers.all_walls import add_walls
 from layers.general_settings_for_game import creation_general_settings
 from settings import KEY_LEFT, KEY_RIGHT, BALL_PAUSE, SIMPLE_GRAVITY, \
-    AVERAGE_GRAVITY, NIGHTMARE_GRAVITY, EXTRA_BALLS
+    AVERAGE_GRAVITY, NIGHTMARE_GRAVITY, EXTRA_BALLS, KEY_UP, KEY_DOWN
 
 
 def simple():
@@ -121,6 +121,8 @@ def game_loop(
     ball_pause = BALL_PAUSE
     extra_balls = EXTRA_BALLS
 
+    speed_change = 0
+
     rotate = False
     clock = pygame.time.Clock()
     t = None
@@ -138,7 +140,10 @@ def game_loop(
                 elif event.key == KEY_RIGHT:
                     right_paddle_top.rotate_up = rotate
                     right_paddle_bottom.rotate_up = rotate
-
+                if event.key == KEY_UP:
+                    speed_change = 1
+                if event.key == KEY_DOWN:
+                    speed_change = -1
             if event.type == pygame.KEYUP:
                 rotate = False
                 if event.key == KEY_LEFT:
@@ -147,10 +152,20 @@ def game_loop(
                 elif event.key == KEY_RIGHT:
                     right_paddle_top.rotate_up = rotate
                     right_paddle_bottom.rotate_up = rotate
+                if event.key == KEY_UP or event.key == KEY_DOWN:
+                    speed_change = 0
         screen.fill((40, 40, 40))
         all_sprites.draw(screen)
+        print(left_paddle_bottom.speed)
         t = clock.tick() / 1000
         game_time += t
+
+        if speed_change:
+            left_paddle_top.set_speed(speed_change)
+            left_paddle_bottom.set_speed(speed_change)
+            right_paddle_top.set_speed(speed_change)
+            right_paddle_bottom.set_speed(speed_change)
+
         all_blots_broken = all([blot.broken for blot in blots.sprites()])
         if not ball.groups() and not all_blots_broken:
             ball_pause -= t

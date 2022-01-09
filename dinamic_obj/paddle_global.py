@@ -2,7 +2,7 @@ from typing import Union
 
 import pygame
 
-from settings import PADDLE_SPEED
+from settings import PADDLE_SPEED, PADDLE_SPEED_RANGE
 
 
 class PaddleGlobal(pygame.sprite.Sprite):
@@ -43,7 +43,7 @@ class PaddleGlobal(pygame.sprite.Sprite):
         self.rotate_up = False
 
         self.speed = PADDLE_SPEED
-        self.kick_ratio = 1 + (self.speed - 100) / 1000
+        self.set_kick_ratio()
         self.static_rebound_ratio = rebound_ratio
 
     def cut_sheet(
@@ -62,3 +62,19 @@ class PaddleGlobal(pygame.sprite.Sprite):
                     frame_location, self.rect.size)))
         if 'left' in self.name.split('_'):
             self.frames = self.frames[::-1]
+
+    def set_kick_ratio(self):
+        """
+        Метод устанавливает силу толчка лопатки в зависимости от её скорости.
+        """
+        self.kick_ratio = 1.05 + (self.speed - 100) / 1000
+
+    def set_speed(self, step: int):
+        """
+        Метод изменяет скорость лопаток.
+        :param step: направление изменения скорости +1 — вверх -1 — вниз
+        """
+        self.speed += step
+        self.speed = min(self.speed, PADDLE_SPEED_RANGE[1])
+        self.speed = max(self.speed, PADDLE_SPEED_RANGE[0])
+        self.set_kick_ratio()
