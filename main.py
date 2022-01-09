@@ -11,7 +11,8 @@ def main():
         name_layer = start()
         if name_layer:
             layer_id = ID_LAYERS[name_layer]
-            score = layers[layer_id]()
+            layer = layers[layer_id]
+            score = layer()
             if score:
                 user_choice = stop(score, layer_id)
                 if user_choice:

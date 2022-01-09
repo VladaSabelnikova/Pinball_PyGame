@@ -55,7 +55,8 @@ def stop(score, layer_id):
 
 
 def main():
-    stop(7)
+    # stop(7)
+    pass
 
 
 if __name__ == '__main__':
