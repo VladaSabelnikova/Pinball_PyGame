@@ -170,8 +170,10 @@ def get_results(layer_id):
     user_results = Path('user_results.txt')
     data = user_results.read_text('utf-8').split('\n')
     result_from_id = data[layer_id]
+    if result_from_id == '-1':
+        return int(result_from_id)
     output = __decipher__(result_from_id)
-    output = output[1:-10]
+    output = int(output[1:-10])
     return output
 
 
