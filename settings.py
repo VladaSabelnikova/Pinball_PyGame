@@ -21,3 +21,9 @@ AVERAGE_GRAVITY = 2800
 NIGHTMARE_GRAVITY = 3800
 
 EXTRA_BALLS = 2
+
+ID_LAYERS = {
+    'Тренировка': 0,
+    'Игра': 1,
+    'NIGHTMARE': 2
+}

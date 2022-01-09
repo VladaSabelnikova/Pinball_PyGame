@@ -1,8 +1,12 @@
 import pygame
 import pygame_gui
 
+from utils import put_results, get_results
 
-def stop(result):
+
+def stop(score, layer_id):
+
+    put_results(score, layer_id)
 
     size = (500, 660)
     pygame.init()
@@ -15,7 +19,7 @@ def stop(result):
     manager = pygame_gui.UIManager(size)
 
     f1 = pygame.font.Font(None, 36)
-    text = f1.render(f'Ваш результат: {result}', True, (100, 100, 100))
+    text = f1.render(f'Ваш результат: {get_results(layer_id)}', True, (100, 100, 100))
     place = text.get_rect(center=(250, 240))
 
     anew = pygame_gui.elements.UIButton(

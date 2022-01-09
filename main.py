@@ -1,21 +1,19 @@
 from layers.all_layers import average, nightmare, simple
 from layers.start import start
 from layers.stop import stop
+from settings import ID_LAYERS
 
-layers = {
-    'Тренировка': simple,
-    'Игра': average,
-    'NIGHTMARE': nightmare
-}
+layers = [simple, average, nightmare]
 
 
 def main():
     while True:
-        result = start()
-        if result:
-            score = layers[result]()
+        name_layer = start()
+        if name_layer:
+            layer_id = ID_LAYERS[name_layer]
+            score = layers[layer_id]()
             if score:
-                user_choice = stop(score)
+                user_choice = stop(score, layer_id)
                 if user_choice:
                     if user_choice == 'Закончить':
                         break

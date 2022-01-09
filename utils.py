@@ -1,3 +1,5 @@
+import datetime
+import random
 from math import radians, sqrt, asin, acos, pi, degrees, sin, cos
 from pathlib import Path
 from typing import List, Union, Tuple
@@ -18,6 +20,32 @@ def load_image(name: str, colorkey=None) -> pygame.image:
         return
     image = pygame.image.load(fullname)
     return image
+
+
+def __encrypt__(*args, **kwargs):
+    row_result, *_ = args
+    encoded_result = [int(elem) for elem in row_result]
+    step_1, step_2 = encoded_result[-2:]
+
+    for i in range(1, len(encoded_result) - 2):
+        elem = encoded_result[i]
+        encoded_result[i] = (((elem + step_1) % 10) + step_2) % 10
+    encoded_result = ''.join([f'{elem}' for elem in encoded_result])
+
+    return encoded_result
+
+
+def __decipher__(*args, **kwargs):
+    encoded_result, *_ = args
+    row_result = [int(elem) for elem in encoded_result]
+    step_1, step_2 = row_result[-2:][::-1]
+
+    for i in range(1, len(encoded_result) - 2):
+        elem = row_result[i]
+        row_result[i] = (((elem - step_1) % 10) - step_2) % 10
+    row_result = ''.join([f'{elem}' for elem in row_result])
+
+    return row_result
 
 
 def get_reflected_vector(
@@ -121,6 +149,34 @@ def get_reflected_vector(
     )
 
     return new_x, new_y
+
+
+def put_results(score, layer_id):
+    date = ''.join(f'{datetime.date.today()}'.split('-'))
+    step_1, step_2 = random.randrange(10), random.randrange(10)
+    row_result = f'{layer_id}{score}{date}{step_1}{step_2}'
+
+    encrypted_result = __encrypt__(row_result)
+
+    user_results = Path('user_results.txt')
+    data = user_results.read_text('utf-8').split('\n')
+
+    data[int(encrypted_result[0])] = encrypted_result
+
+    user_results.write_text('\n'.join(data))
+
+
+def get_results(layer_id):
+    user_results = Path('user_results.txt')
+    data = user_results.read_text('utf-8').split('\n')
+    result_from_id = data[layer_id]
+    output = __decipher__(result_from_id)
+    output = output[1:-10]
+    return output
+
+
+def result_calculation(game_time, extra_balls):
+    return int(100_000 / (game_time * (3 - extra_balls)))
 
 
 def get_reflected_vector_paddle(

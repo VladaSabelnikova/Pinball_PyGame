@@ -8,6 +8,7 @@ from layers.all_walls import add_walls
 from layers.general_settings_for_game import creation_general_settings
 from settings import KEY_LEFT, KEY_RIGHT, BALL_PAUSE, SIMPLE_GRAVITY, \
     AVERAGE_GRAVITY, NIGHTMARE_GRAVITY, EXTRA_BALLS
+from utils import result_calculation
 
 
 def simple():
@@ -161,7 +162,7 @@ def game_loop(
         if all_blots_broken:  # победа
             ball_pause -= t
             if ball_pause <= 0:
-                return int(100_000 / (game_time * (3 - extra_balls)))
+                return result_calculation(game_time, extra_balls)
         if ball.y >= 700:  # лузер
             ball_pause -= t
             if ball_pause <= 0:
