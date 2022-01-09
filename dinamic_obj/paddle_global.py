@@ -72,7 +72,7 @@ class PaddleGlobal(pygame.sprite.Sprite):
     def set_speed(self, step: int):
         """
         Метод изменяет скорость лопаток.
-        :param step: направление изменения скорости +1 — вверх -1 — вниз
+        :param step: шаг изменения скорости "+" — вверх "-" — вниз
         """
         self.speed += step
         self.speed = min(self.speed, PADDLE_SPEED_RANGE[1])
