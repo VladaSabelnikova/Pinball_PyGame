@@ -14,8 +14,11 @@ def stop(score, layer_id):
     blue = (87, 206, 227)
     color = default_color
 
-    font = pygame.font.Font(None, 36)
-    conclusions = 'У данного уровня нет баллов'
+    cirrent_result_font = pygame.font.Font(None, 36)
+    current_record_font = pygame.font.Font(None, 26)
+    cur_record_message = None
+
+    conclusions = 'Баллы будут в режиме "Игра"'
 
     if layer_id > 0:
         current_record = get_results(layer_id)
@@ -28,12 +31,23 @@ def stop(score, layer_id):
         elif NOT_SHAMEFUL >= int(score):
             conclusions = f'Вы проиграли: 0 баллов'
             color = red
+            cur_record_message = current_record_font.render(
+                f'Рекорд: {current_record}',
+                True,
+                blue
+            )
 
         else:
             conclusions = f'Ваш результат: {score} баллов'
             color = blue
+            cur_record_message = current_record_font.render(
+                f'Рекорд: {current_record}',
+                True,
+                blue
+            )
 
-    text = font.render(conclusions, True, color)
+    text = cirrent_result_font.render(conclusions, True, color)
+
     size = (500, 660)
     pygame.init()
 
@@ -43,9 +57,8 @@ def stop(score, layer_id):
 
     background.fill(pygame.Color((40, 40, 40)))
     manager = pygame_gui.UIManager(size)
-
-
     place = text.get_rect(center=(250, 240))
+
     anew = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect((60, 560), (180, 60)),
         text='Заново',
@@ -59,6 +72,12 @@ def stop(score, layer_id):
     )
 
     clock = pygame.time.Clock()
+    window_surface.blit(background, (0, 0))
+    window_surface.blit(text, place)
+    if cur_record_message:
+        place_message_cur_record = cur_record_message.get_rect(center=(250, 300))
+        window_surface.blit(cur_record_message, place_message_cur_record)
+
     while True:
         time_delta = clock.tick(60) / 1000
         for event in pygame.event.get():
@@ -71,8 +90,6 @@ def stop(score, layer_id):
                     return event.ui_element.text
             manager.process_events(event)
         manager.update(time_delta)
-        window_surface.blit(background, (0, 0))
-        window_surface.blit(text, place)
         manager.draw_ui(window_surface)
         pygame.display.update()
 
