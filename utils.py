@@ -23,6 +23,14 @@ def load_image(name: str, colorkey=None) -> pygame.image:
     return image
 
 
+def draw_number_balls(screen, extra_balls):
+    color = (168, 39, 41)
+    font = pygame.font.Font(None, 100)
+    text = font.render(f'{extra_balls + 1}', True, color)
+    text_x, text_y = 35, 570
+    screen.blit(text, (text_x, text_y))
+
+
 def draw_paddle_speed(screen, speed):
     speed -= 100
     height = 100

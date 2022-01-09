@@ -8,7 +8,7 @@ from layers.all_walls import add_walls
 from layers.general_settings_for_game import creation_general_settings
 from settings import KEY_LEFT, KEY_RIGHT, BALL_PAUSE, SIMPLE_GRAVITY, \
     AVERAGE_GRAVITY, NIGHTMARE_GRAVITY, EXTRA_BALLS, KEY_UP, KEY_DOWN
-from utils import result_calculation, draw_paddle_speed
+from utils import result_calculation, draw_paddle_speed, draw_number_balls
 
 
 def simple():
@@ -157,6 +157,7 @@ def game_loop(
                     speed_change = 0
         screen.fill((40, 40, 40))
         all_sprites.draw(screen)
+        draw_number_balls(screen, extra_balls)
         draw_paddle_speed(screen, left_paddle_top.speed)
         t = clock.tick() / 1000
         game_time += t
