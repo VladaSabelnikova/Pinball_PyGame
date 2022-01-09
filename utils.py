@@ -23,6 +23,14 @@ def load_image(name: str, colorkey=None) -> pygame.image:
     return image
 
 
+def draw_paddle_speed(screen, speed):
+    speed -= 100
+    height = 100
+    width = 15
+    color = (107, 107, 107)
+    screen.fill(color, (460, 540, width, height - (speed // 4)))
+
+
 def __encrypt__(*args, **kwargs):
     row_result, *_ = args
     encoded_result = [int(elem) for elem in row_result]

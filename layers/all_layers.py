@@ -8,7 +8,7 @@ from layers.all_walls import add_walls
 from layers.general_settings_for_game import creation_general_settings
 from settings import KEY_LEFT, KEY_RIGHT, BALL_PAUSE, SIMPLE_GRAVITY, \
     AVERAGE_GRAVITY, NIGHTMARE_GRAVITY, EXTRA_BALLS, KEY_UP, KEY_DOWN
-from utils import result_calculation
+from utils import result_calculation, draw_paddle_speed
 
 
 def simple():
@@ -142,9 +142,9 @@ def game_loop(
                     right_paddle_top.rotate_up = rotate
                     right_paddle_bottom.rotate_up = rotate
                 if event.key == KEY_UP:
-                    speed_change = 1
+                    speed_change = 3
                 if event.key == KEY_DOWN:
-                    speed_change = -1
+                    speed_change = -3
             if event.type == pygame.KEYUP:
                 rotate = False
                 if event.key == KEY_LEFT:
@@ -157,6 +157,7 @@ def game_loop(
                     speed_change = 0
         screen.fill((40, 40, 40))
         all_sprites.draw(screen)
+        draw_paddle_speed(screen, left_paddle_top.speed)
         t = clock.tick() / 1000
         game_time += t
 
