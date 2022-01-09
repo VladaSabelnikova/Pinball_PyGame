@@ -7,7 +7,7 @@ from layers.all_paddles import creation_paddles
 from layers.all_walls import add_walls
 from layers.general_settings_for_game import creation_general_settings
 from settings import KEY_LEFT, KEY_RIGHT, BALL_PAUSE, SIMPLE_GRAVITY, \
-    AVERAGE_GRAVITY, NIGHTMARE_GRAVITY
+    AVERAGE_GRAVITY, NIGHTMARE_GRAVITY, EXTRA_BALLS
 
 
 def simple():
@@ -119,7 +119,7 @@ def game_loop(
     ball
 ):
     ball_pause = BALL_PAUSE
-    balls_for_play = 2
+    extra_balls = EXTRA_BALLS
 
     rotate = False
     clock = pygame.time.Clock()
@@ -161,13 +161,13 @@ def game_loop(
         if all_blots_broken:  # победа
             ball_pause -= t
             if ball_pause <= 0:
-                return int(100_000 / game_time)
+                return int(100_000 / (game_time * (3 - extra_balls)))
         if ball.y >= 700:  # лузер
             ball_pause -= t
             if ball_pause <= 0:
-                if balls_for_play:
+                if extra_balls:
                     ball_pause = BALL_PAUSE
-                    balls_for_play -= 1
+                    extra_balls -= 1
                     ball.position_creation()
                 else:
                     return -1
