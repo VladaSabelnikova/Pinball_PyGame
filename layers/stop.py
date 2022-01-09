@@ -1,13 +1,39 @@
+from pathlib import Path
+
 import pygame
 import pygame_gui
 
+from settings import NOT_SHAMEFUL
 from utils import put_results, get_results
 
 
 def stop(score, layer_id):
+    green = (169, 220, 118)
+    red = (255, 97, 136)
+    default_color = (100, 100, 100)
+    blue = (87, 206, 227)
+    color = default_color
 
-    put_results(score, layer_id)
+    font = pygame.font.Font(None, 36)
+    conclusions = 'У данного уровня нет баллов'
 
+    if layer_id > 0:
+        current_record = get_results(layer_id)
+
+        if current_record < int(score):
+            conclusions = f'Новый рекорд {score} баллов!'
+            color = green
+            put_results(score, layer_id)
+
+        elif NOT_SHAMEFUL >= int(score):
+            conclusions = f'Вы проиграли: 0 баллов'
+            color = red
+
+        else:
+            conclusions = f'Ваш результат: {score} баллов'
+            color = blue
+
+    text = font.render(conclusions, True, color)
     size = (500, 660)
     pygame.init()
 
@@ -18,10 +44,8 @@ def stop(score, layer_id):
     background.fill(pygame.Color((40, 40, 40)))
     manager = pygame_gui.UIManager(size)
 
-    f1 = pygame.font.Font(None, 36)
-    text = f1.render(f'Ваш результат: {get_results(layer_id)}', True, (100, 100, 100))
-    place = text.get_rect(center=(250, 240))
 
+    place = text.get_rect(center=(250, 240))
     anew = pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect((60, 560), (180, 60)),
         text='Заново',
@@ -33,7 +57,6 @@ def stop(score, layer_id):
         text='Закончить',
         manager=manager
     )
-
 
     clock = pygame.time.Clock()
     while True:
@@ -55,7 +78,6 @@ def stop(score, layer_id):
 
 
 def main():
-    # stop(7)
     pass
 
 

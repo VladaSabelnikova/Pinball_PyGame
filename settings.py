@@ -27,3 +27,5 @@ ID_LAYERS = {
     'Игра': 1,
     'NIGHTMARE': 2
 }
+
+NOT_SHAMEFUL = -1
