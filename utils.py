@@ -1,4 +1,5 @@
 import datetime
+import pathlib
 import random
 from math import radians, sqrt, asin, acos, pi, degrees, sin, cos
 from pathlib import Path
@@ -151,6 +152,14 @@ def get_reflected_vector(
     return new_x, new_y
 
 
+def result_file_open():
+    user_results = Path('user_results.txt')
+    if not user_results.exists():
+        user_results.write_text('-1\n-1\n-1')
+    data = user_results.read_text('utf-8').split('\n')
+    return user_results, data
+
+
 def put_results(score, layer_id):
     date = ''.join(f'{datetime.date.today()}'.split('-'))
     step_1, step_2 = random.randrange(10), random.randrange(10)
@@ -158,8 +167,10 @@ def put_results(score, layer_id):
 
     encrypted_result = __encrypt__(row_result)
 
-    user_results = Path('user_results.txt')
-    data = user_results.read_text('utf-8').split('\n')
+    # user_results = Path('user_results.txt')
+    # data = user_results.read_text('utf-8').split('\n')
+
+    user_results, data = result_file_open()
 
     data[int(encrypted_result[0])] = encrypted_result
 
@@ -167,8 +178,7 @@ def put_results(score, layer_id):
 
 
 def get_results(layer_id):
-    user_results = Path('user_results.txt')
-    data = user_results.read_text('utf-8').split('\n')
+    user_results, data = result_file_open()
     result_from_id = data[layer_id]
     if result_from_id == '-1':
         return int(result_from_id)
