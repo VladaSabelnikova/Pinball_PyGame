@@ -2,7 +2,7 @@ from typing import Union
 
 import pygame
 
-from lib import load_image
+from utils.lib import load_image
 
 
 class Wall(pygame.sprite.Sprite):

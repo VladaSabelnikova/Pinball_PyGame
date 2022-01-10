@@ -3,7 +3,7 @@ from typing import Union, List
 
 import pygame
 
-from lib import load_image
+from utils.lib import load_image
 
 
 class Bumper(pygame.sprite.Sprite):

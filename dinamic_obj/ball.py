@@ -2,7 +2,7 @@ import random
 from math import sqrt
 
 import pygame
-from lib import load_image, get_reflected_vector, \
+from utils.lib import load_image, get_reflected_vector, \
     get_reflected_vector_paddle, get_reflected_vector_blot, \
     get_reflected_vector_bumper
 

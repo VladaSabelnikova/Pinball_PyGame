@@ -1,6 +1,6 @@
 from dinamic_obj.left_paddle import LeftPaddle
 from dinamic_obj.right_paddle import RightPaddle
-from lib import load_image
+from utils.lib import load_image
 
 
 def creation_paddles(all_sprites, paddles):

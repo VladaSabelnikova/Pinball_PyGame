@@ -169,7 +169,7 @@ def get_reflected_vector(
 
 
 def result_file_open():
-    user_results = Path('user_results.txt')
+    user_results = Path('../user_results.txt')
     if not user_results.exists():
         user_results.write_text('-1\n-1\n-1')
     data = user_results.read_text('utf-8').split('\n')
