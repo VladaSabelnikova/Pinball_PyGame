@@ -1,7 +1,7 @@
 import pygame
 import pygame_gui
 
-from settings import NOT_SHAMEFUL
+from utils.settings import NOT_SHAMEFUL
 from utils.lib import put_results, get_results
 
 

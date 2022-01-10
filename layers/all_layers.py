@@ -7,7 +7,7 @@ from layers.all_paddles import creation_paddles
 from layers.all_walls import add_walls
 from layers.game_loop import game_loop
 from layers.general_settings_for_game import creation_general_settings
-from settings import SIMPLE_GRAVITY, \
+from utils.settings import SIMPLE_GRAVITY, \
     AVERAGE_GRAVITY, NIGHTMARE_GRAVITY
 
 

@@ -8,8 +8,8 @@ from utils.lib import load_image, get_reflected_vector, \
     get_reflected_vector_bumper
 
 from dinamic_obj.shadow import Shadow
-from settings import SIMPLE_GRAVITY, BALL_PATH, MAX_SPEED, SOUND_GAP, \
-    BREAKING_POINT, SOUND_VOLUME_CONTROL
+from utils.settings import SIMPLE_GRAVITY, BALL_PATH, MAX_SPEED, SOUND_GAP, \
+    SOUND_VOLUME_CONTROL
 
 
 class Ball(pygame.sprite.Sprite):

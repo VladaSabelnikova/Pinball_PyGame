@@ -3,7 +3,7 @@ from typing import Union, Tuple
 
 import pygame
 
-from settings import PADDLE_SPEED, BLOT_SPEED
+from utils.settings import BLOT_SPEED
 
 
 class Blot(pygame.sprite.Sprite):

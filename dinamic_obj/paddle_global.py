@@ -2,7 +2,7 @@ from typing import Union
 
 import pygame
 
-from settings import PADDLE_SPEED, PADDLE_SPEED_RANGE
+from utils.settings import PADDLE_SPEED, PADDLE_SPEED_RANGE
 
 
 class PaddleGlobal(pygame.sprite.Sprite):

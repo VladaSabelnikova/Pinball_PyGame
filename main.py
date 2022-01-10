@@ -1,7 +1,7 @@
 from layers.all_layers import average, nightmare, simple
 from layers.start import start
 from layers.stop import stop
-from settings import ID_LAYERS
+from utils.settings import ID_LAYERS
 
 layers = [simple, average, nightmare]
 

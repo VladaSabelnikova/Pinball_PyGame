@@ -1,6 +1,6 @@
 import pygame
 
-from settings import KEY_LEFT, KEY_RIGHT, BALL_PAUSE, EXTRA_BALLS, KEY_UP, \
+from utils.settings import KEY_LEFT, KEY_RIGHT, BALL_PAUSE, EXTRA_BALLS, KEY_UP, \
     KEY_DOWN
 from utils.lib import result_calculation, draw_paddle_speed, draw_number_balls
 
