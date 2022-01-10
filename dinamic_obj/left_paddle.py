@@ -40,6 +40,11 @@ class LeftPaddle(PaddleGlobal):
         self.step_angle = 3
 
     def update(self, *args: Tuple) -> None:
+        """
+        Метод изменяет изображение (берёт соответствующее из self.frames),
+        создаёт новую маску и меняет силу отскока мяча от лопатки
+        в зависимости от прошедшего времени и скорости.
+        """
         *_, t = args[:5]
         prev_frame = int(self.cur_frame)
         if self.rotate_up:
@@ -51,7 +56,8 @@ class LeftPaddle(PaddleGlobal):
             self.cur_frame = max(self.cur_frame, 0)
 
         if prev_frame != int(self.cur_frame):
-            self.angle = self.start_angle + int(self.cur_frame) * self.step_angle
+            self.angle = self.start_angle + int(self.cur_frame) * \
+                         self.step_angle
             self.image = self.frames[int(self.cur_frame)]
             self.mask = pygame.mask.from_surface(self.image)
 
@@ -59,4 +65,3 @@ class LeftPaddle(PaddleGlobal):
             self.rebound_ratio = self.static_rebound_ratio
         else:
             self.rebound_ratio = self.kick_ratio
-
