@@ -33,6 +33,7 @@ class PaddleGlobal(pygame.sprite.Sprite):
 
         self.angle = angle
         self.rebound_ratio = rebound_ratio
+        self.rebound_sound = pygame.mixer.Sound('src/sounds/rebound_1.mp3')
 
         self.frames = []
         self.cut_sheet(img, columns, rows)

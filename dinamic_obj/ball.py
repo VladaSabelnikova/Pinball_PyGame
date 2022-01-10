@@ -2,12 +2,14 @@ import random
 from math import sqrt
 
 import pygame
+
 from utils.lib import load_image, get_reflected_vector, \
     get_reflected_vector_paddle, get_reflected_vector_blot, \
     get_reflected_vector_bumper
 
 from dinamic_obj.shadow import Shadow
-from settings import SIMPLE_GRAVITY, BALL_PATH, MAX_SPEED
+from settings import SIMPLE_GRAVITY, BALL_PATH, MAX_SPEED, SOUND_GAP, \
+    BREAKING_POINT, SOUND_VOLUME_CONTROL
 
 
 class Ball(pygame.sprite.Sprite):
@@ -47,6 +49,7 @@ class Ball(pygame.sprite.Sprite):
         # self.y = 200
 
         self.position_creation()
+        self.time_from_last_sound = SOUND_GAP
 
     def position_creation(self):
         self.x = random.randint(1, 41)
@@ -71,6 +74,8 @@ class Ball(pygame.sprite.Sprite):
         self.y += self.vy * t
 
         self.vy += self.gravity * t
+
+        self.time_from_last_sound += t
 
         self.rect.x = int(self.x)
         self.rect.y = int(self.y)
@@ -119,4 +124,10 @@ class Ball(pygame.sprite.Sprite):
 
                     self.vx, self.vy = temp_x, temp_y
                     self.previous_barrier = barrier
+
+                    if self.time_from_last_sound >= SOUND_GAP:
+                        volume = (temp_x ** 2 + temp_y ** 2) / SOUND_VOLUME_CONTROL
+                        barrier.rebound_sound.set_volume(volume)
+                        barrier.rebound_sound.play()
+                        self.time_from_last_sound = 0
                     break

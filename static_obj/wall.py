@@ -28,6 +28,8 @@ class Wall(pygame.sprite.Sprite):
         self.angle = angle
         self.rebound_ratio = rebound_ratio
 
+        self.rebound_sound = pygame.mixer.Sound('src/sounds/rebound_1.mp3')
+
         self.image = load_image(img)
         if self.image:
             self.rect = self.image.get_rect()
