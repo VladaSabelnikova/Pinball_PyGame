@@ -203,8 +203,9 @@ def get_results(layer_id):
     return output
 
 
-def result_calculation(game_time, extra_balls):
-    return int(100_000 / (game_time * (3 - extra_balls)))
+def result_calculation(game_time, extra_balls, skills_ratio):
+    skill = sum(skills_ratio) // len(skills_ratio) // 100
+    return int(1_000_000 / (game_time * (3 - extra_balls) * skill))
 
 
 def get_reflected_vector_paddle(

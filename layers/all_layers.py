@@ -123,6 +123,7 @@ def game_loop(
     extra_balls = EXTRA_BALLS
 
     speed_change = 0
+    skills_ratio = []
 
     rotate = False
     clock = pygame.time.Clock()
@@ -172,13 +173,14 @@ def game_loop(
         if not ball.groups() and not all_blots_broken:
             ball_pause -= t
             if ball_pause <= 0:
+                skills_ratio.append(left_paddle_top.speed)
                 ball_pause = BALL_PAUSE
                 ball.position_creation()
                 ball.add(all_sprites)
         if all_blots_broken:  # победа
             ball_pause -= t
             if ball_pause <= 0:
-                return result_calculation(game_time, extra_balls)
+                return result_calculation(game_time, extra_balls, skills_ratio)
         if ball.y >= 700:  # лузер
             ball_pause -= t
             if ball_pause <= 0:
