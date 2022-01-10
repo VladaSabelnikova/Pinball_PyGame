@@ -1,3 +1,5 @@
+from typing import Union
+
 import pygame
 
 from utils.lib import result_calculation, draw_paddle_speed, draw_number_balls
@@ -18,7 +20,7 @@ def game_loop(
     bumpers: pygame.sprite,
     shadow: pygame.sprite.Group,
     ball: pygame.sprite
-):
+) -> Union[int, None]:
     """
     Игровой цикл.
     Выполняется универсально, вне зависимости от уровня.
