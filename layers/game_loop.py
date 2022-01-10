@@ -39,7 +39,7 @@ def game_loop(
                 if event.key == KEY_LEFT:
                     left_paddle_top.rotate_up = rotate
                     left_paddle_bottom.rotate_up = rotate
-                elif event.key == KEY_RIGHT:
+                if event.key == KEY_RIGHT:
                     right_paddle_top.rotate_up = rotate
                     right_paddle_bottom.rotate_up = rotate
                 if event.key == KEY_UP:
@@ -51,7 +51,7 @@ def game_loop(
                 if event.key == KEY_LEFT:
                     left_paddle_top.rotate_up = rotate
                     left_paddle_bottom.rotate_up = rotate
-                elif event.key == KEY_RIGHT:
+                if event.key == KEY_RIGHT:
                     right_paddle_top.rotate_up = rotate
                     right_paddle_bottom.rotate_up = rotate
                 if event.key == KEY_UP or event.key == KEY_DOWN:
