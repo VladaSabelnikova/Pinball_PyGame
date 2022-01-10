@@ -7,7 +7,7 @@ from typing import List, Union, Tuple
 
 import pygame
 
-from log import create_logger
+from utils.log import create_logger
 from settings import LOG_LEVEL, BREAKING_POINT
 
 
