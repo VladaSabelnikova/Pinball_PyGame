@@ -39,9 +39,11 @@ def game_loop(
                 if event.key == KEY_LEFT:
                     left_paddle_top.rotate_up = rotate
                     left_paddle_bottom.rotate_up = rotate
+                    left_paddle_bottom.working_sound.play()
                 if event.key == KEY_RIGHT:
                     right_paddle_top.rotate_up = rotate
                     right_paddle_bottom.rotate_up = rotate
+                    right_paddle_bottom.working_sound.play()
                 if event.key == KEY_UP:
                     speed_change = 3
                 if event.key == KEY_DOWN:
@@ -51,9 +53,11 @@ def game_loop(
                 if event.key == KEY_LEFT:
                     left_paddle_top.rotate_up = rotate
                     left_paddle_bottom.rotate_up = rotate
+                    left_paddle_bottom.working_sound.play()
                 if event.key == KEY_RIGHT:
                     right_paddle_top.rotate_up = rotate
                     right_paddle_bottom.rotate_up = rotate
+                    right_paddle_bottom.working_sound.play()
                 if event.key == KEY_UP or event.key == KEY_DOWN:
                     speed_change = 0
         screen.fill((40, 40, 40))
