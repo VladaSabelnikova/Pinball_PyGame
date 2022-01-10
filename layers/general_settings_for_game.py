@@ -1,7 +1,24 @@
+from typing import Tuple
+
 import pygame
 
 
-def creation_general_settings():
+def creation_general_settings() \
+    -> Tuple[
+        pygame.sprite.Group,
+        pygame.display,
+        pygame.sprite.Group,
+        pygame.sprite.Group,
+        pygame.sprite.Group,
+        pygame.sprite.Group,
+        pygame.sprite.Group
+    ]:
+    """
+
+    Функция создаёт общие для всех уровней настройки.
+
+    :return: Возвращает необходимые для игры параметры
+    """
     pygame.init()
     pygame.display.set_caption('Игра')
     all_sprites = pygame.sprite.Group()
