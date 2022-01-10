@@ -17,6 +17,7 @@ def creation_paddles(
     :param all_sprites: группа со всеми спрайтами
     :param paddles: группа со всеми частями лопаток
     :return: Вернёт именованные спрайты, части лопаток.
+    Мы их именуем, так как они нам потребуются в игровом цикле.
     """
 
     left_paddle_top = LeftPaddle(
