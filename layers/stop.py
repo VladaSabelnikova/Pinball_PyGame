@@ -7,7 +7,6 @@ from utils.lib import put_results, get_results
 
 def stop(score, layer_id):
     fail_sound = pygame.mixer.Sound('src/sounds/fail.mp3')
-
     victory_sound = pygame.mixer.Sound('src/sounds/victory.mp3')
     victory_sound.set_volume(.8)
 
