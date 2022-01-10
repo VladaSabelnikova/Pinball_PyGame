@@ -44,7 +44,7 @@ class Blot(pygame.sprite.Sprite):
         self.broken = False
         self.angle = None
 
-        self.downswing = BLOT_SPEED
+        self.fall_coefficient = .999
 
     def cut_sheet(
         self,
@@ -63,18 +63,16 @@ class Blot(pygame.sprite.Sprite):
 
     def update(self, *args):
         *_, t = args[:5]
+        old_frame = self.cur_frame
         if self.broken:
-            if 4 < int(self.cur_frame) < 15:
-                self.speed = max(self.downswing, 15)
-                self.downswing *= .99
-            elif int(self.cur_frame) >= 15:
-                self.speed = max(self.downswing, 3)
-                self.downswing *= .99
-
             self.cur_frame += self.speed * t
             self.cur_frame = min(self.cur_frame, len(self.frames) - 1)
             self.image = self.frames[int(self.cur_frame)]
             self.mask = pygame.mask.from_surface(self.image)
+
+            if int(old_frame) != int(self.cur_frame):
+                self.speed = max(self.fall_coefficient * self.speed, 10)
+                self.fall_coefficient **= 2
 
     def creation_angle(self, ball: pygame.sprite.Sprite) -> None:
         x_ball, y_ball = ball.x + ball.radius, ball.y + ball.radius
