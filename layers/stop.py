@@ -6,6 +6,11 @@ from utils.lib import put_results, get_results
 
 
 def stop(score, layer_id):
+    fail_sound = pygame.mixer.Sound('src/sounds/fail.mp3')
+
+    victory_sound = pygame.mixer.Sound('src/sounds/victory.mp3')
+    victory_sound.set_volume(.8)
+
     green = (169, 220, 118)
     red = (255, 97, 136)
     default_color = (100, 100, 100)
@@ -22,11 +27,13 @@ def stop(score, layer_id):
         current_record = get_results(layer_id)
 
         if current_record < int(score):
+            victory_sound.play()
             conclusions = f'Новый рекорд {score} баллов!'
             color = green
             put_results(score, layer_id)
 
         elif NOT_SHAMEFUL >= int(score):
+            fail_sound.play()
             conclusions = f'Вы проиграли: 0 баллов'
             color = red
             cur_record_message = current_record_font.render(
@@ -34,7 +41,6 @@ def stop(score, layer_id):
                 True,
                 blue
             )
-
         else:
             conclusions = f'Ваш результат: {score} баллов'
             color = blue
