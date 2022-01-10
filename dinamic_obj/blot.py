@@ -136,20 +136,24 @@ class Blot(pygame.sprite.Sprite):
 
         vector_len = sqrt(x_vector ** 2 + y_vector ** 2)
 
-        if x_vector > 0 and y_vector <= 0:  # если вектор направлен в 1-ю координатную четверть
+        # если вектор направлен в 1-ю координатную четверть
+        if x_vector > 0 and y_vector <= 0:
             vector_sin = -y_vector / vector_len
             vector_angle = asin(vector_sin)
 
-        elif x_vector <= 0 and y_vector < 0:  # если вектор направлен в 2-ю координатную четверть
+        # если вектор направлен в 2-ю координатную четверть
+        elif x_vector <= 0 and y_vector < 0:
             vector_cos = x_vector / vector_len
             vector_angle = acos(vector_cos)
 
-        elif x_vector < 0 and y_vector >= 0:  # если вектор направлен в 3-ю координатную четверть
+        # если вектор направлен в 3-ю координатную четверть
+        elif x_vector < 0 and y_vector >= 0:
             vector_cos = x_vector / vector_len
             vector_angle = -acos(vector_cos)
             vector_angle += pi * 2  # вычисляем размер угла из отрицательного
 
-        elif x_vector >= 0 and y_vector > 0:  # если вектор направлен в 4-ю координатную четверть
+        # если вектор направлен в 4-ю координатную четверть
+        elif x_vector >= 0 and y_vector > 0:
             vector_sin = -y_vector / vector_len
             vector_angle = asin(vector_sin)
             vector_angle += pi * 2  # вычисляем размер угла из отрицательного
