@@ -4,7 +4,7 @@ import pygame
 import pygame_gui
 
 from settings import NOT_SHAMEFUL
-from utils import put_results, get_results
+from lib import put_results, get_results
 
 
 def stop(score, layer_id):

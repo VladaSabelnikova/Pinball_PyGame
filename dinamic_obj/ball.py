@@ -2,12 +2,12 @@ import random
 from math import sqrt
 
 import pygame
+from lib import load_image, get_reflected_vector, \
+    get_reflected_vector_paddle, get_reflected_vector_blot, \
+    get_reflected_vector_bumper
 
 from dinamic_obj.shadow import Shadow
 from settings import SIMPLE_GRAVITY, BALL_PATH, MAX_SPEED
-from utils import load_image, get_reflected_vector, logger, \
-    get_reflected_vector_paddle, get_reflected_vector_blot, \
-    get_reflected_vector_bumper
 
 
 class Ball(pygame.sprite.Sprite):
@@ -101,7 +101,7 @@ class Ball(pygame.sprite.Sprite):
 
         # Если столкновение есть —
         # проходим по всем поверхностям и заменяем направление вектора.
-        if collides: #and self.was_a_jump:
+        if collides:  # and self.was_a_jump:
             for barrier in collides:
                 # logger.debug(f'{barrier.name} {barrier.angle}')
                 temp_x, temp_y = func(

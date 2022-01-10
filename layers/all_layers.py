@@ -8,7 +8,7 @@ from layers.all_walls import add_walls
 from layers.general_settings_for_game import creation_general_settings
 from settings import KEY_LEFT, KEY_RIGHT, BALL_PAUSE, SIMPLE_GRAVITY, \
     AVERAGE_GRAVITY, NIGHTMARE_GRAVITY, EXTRA_BALLS, KEY_UP, KEY_DOWN
-from utils import result_calculation, draw_paddle_speed, draw_number_balls
+from lib import result_calculation, draw_paddle_speed, draw_number_balls
 
 
 def simple():

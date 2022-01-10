@@ -1,7 +1,7 @@
 import pygame
 
 from dinamic_obj.blot import Blot
-from utils import load_image
+from lib import load_image
 
 
 def add_blots(all_sprites, blots):
