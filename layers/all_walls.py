@@ -7,7 +7,6 @@ def add_walls(
     all_sprites: pygame.sprite.Group,
     walls: pygame.sprite.Group
 ) -> None:
-
     """
     Создаёт и закидывает в группу стенки.
     Не именуем, так как больше мы их нигде не используем.
@@ -18,13 +17,13 @@ def add_walls(
     """
 
     Wall(
-            angle=90,
-            rebound_ratio=0.91,
-            img='images/left_1_bottom_90.png',
-            all_sprites=all_sprites,
-            walls=walls,
-            name='left_1_bottom_90'
-        )
+        angle=90,
+        rebound_ratio=0.91,
+        img='images/left_1_bottom_90.png',
+        all_sprites=all_sprites,
+        walls=walls,
+        name='left_1_bottom_90'
+    )
 
     Wall(
         angle=158,
