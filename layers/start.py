@@ -3,9 +3,10 @@ import pygame_gui
 
 
 def start():
-
     size = (500, 660)
     pygame.init()
+
+    pygame.mixer.music.load('src/sounds/start_theme.mp3')
 
     pygame.display.set_caption('Стартовое окно')
     window_surface = pygame.display.set_mode(size)
@@ -33,15 +34,19 @@ def start():
     )
 
     clock = pygame.time.Clock()
+    pygame.mixer.music.set_volume(0.2)
+    pygame.mixer.music.play(-1)
     while True:
         time_delta = clock.tick(60) / 1000
         for event in pygame.event.get():
 
             if event.type == pygame.QUIT:
+                pygame.mixer.music.stop()
                 return None
 
             if event.type == pygame.USEREVENT:
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                    pygame.mixer.music.stop()
                     return event.ui_element.text
             manager.process_events(event)
         manager.update(time_delta)
