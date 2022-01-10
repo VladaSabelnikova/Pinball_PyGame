@@ -42,7 +42,7 @@ class Blot(pygame.sprite.Sprite):
         self.static_rebound_ratio = rebound_ratio
         self.rebound_sound = pygame.mixer.Sound('src/sounds/rebound_1.mp3')
 
-        self.breaking_sound = pygame.mixer.Sound('src/sounds/rebound_2.mp3')
+        self.breaking_sound = pygame.mixer.Sound('src/sounds/breaking_blot.mp3')
 
         self.broken = False
         self.angle = None
