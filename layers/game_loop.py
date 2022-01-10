@@ -1,24 +1,42 @@
 import pygame
 
-from utils.settings import KEY_LEFT, KEY_RIGHT, BALL_PAUSE, EXTRA_BALLS, KEY_UP, \
-    KEY_DOWN
 from utils.lib import result_calculation, draw_paddle_speed, draw_number_balls
+from utils.settings import KEY_LEFT, KEY_RIGHT, BALL_PAUSE, EXTRA_BALLS, \
+    KEY_UP, KEY_DOWN
 
 
 def game_loop(
-    all_sprites,
-    left_paddle_top,
-    left_paddle_bottom,
-    right_paddle_top,
-    right_paddle_bottom,
-    screen,
-    paddles,
-    walls,
-    blots,
-    bumpers,
-    shadow,
-    ball
+    all_sprites: pygame.sprite.Group,
+    left_paddle_top: pygame.sprite,
+    left_paddle_bottom: pygame.sprite,
+    right_paddle_top: pygame.sprite,
+    right_paddle_bottom: pygame.sprite,
+    screen: pygame.display,
+    paddles: pygame.sprite,
+    walls: pygame.sprite,
+    blots: pygame.sprite,
+    bumpers: pygame.sprite,
+    shadow: pygame.sprite.Group,
+    ball: pygame.sprite
 ):
+    """
+    Игровой цикл.
+    Выполняется универсально, вне зависимости от уровня.
+
+    :param all_sprites: группа со всеми спрайтами
+    :param left_paddle_top: спрайт левой верхней части лопатки
+    :param left_paddle_bottom:спрайт левой нижней части лопатки
+    :param right_paddle_top: спрайт правой верхней части лопатки
+    :param right_paddle_bottom: спрайт правой нижней части лопатки
+    :param screen: полотно, на котором мы рисуем
+    :param paddles: группа со всеми лопатками
+    :param walls: группа со всеми стенками
+    :param blots: группа со всеми красками
+    :param bumpers: группа со всеми отбойниками
+    :param shadow: группа со всеми тенями
+    :param ball: спрайт мячик.
+    :return:
+    """
     ball_pause = BALL_PAUSE
     extra_balls = EXTRA_BALLS
 
@@ -94,7 +112,15 @@ def game_loop(
                     ball.position_creation()
                 else:
                     return -1
-        all_sprites.update(paddles, walls, blots, bumpers, t, all_sprites,
-                           shadow, screen)
+        all_sprites.update(
+            paddles,
+            walls,
+            blots,
+            bumpers,
+            t,
+            all_sprites,
+            shadow,
+            screen
+        )
         pygame.display.flip()
     pygame.quit()
