@@ -341,6 +341,7 @@ def get_reflected_vector_blot(
 
         if vector_len >= BREAKING_POINT:
             blot.broken = True
+            blot.breaking_sound.play()
             ball.kill()
         else:
             blot.creation_angle(ball)
