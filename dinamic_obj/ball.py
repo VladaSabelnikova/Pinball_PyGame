@@ -143,7 +143,8 @@ class Ball(pygame.sprite.Sprite):
 
                     if self.time_from_last_sound >= SOUND_GAP:
                         # Изменяем громкость в зависимости от силы удара
-                        volume = (temp_x ** 2 + temp_y ** 2) / SOUND_VOLUME_CONTROL
+                        volume = (temp_x ** 2 + temp_y ** 2)\
+                                 / SOUND_VOLUME_CONTROL
                         barrier.rebound_sound.set_volume(volume)
                         barrier.rebound_sound.play()
                         self.time_from_last_sound = 0
