@@ -1,6 +1,6 @@
 import pygame.sprite
 
-from settings import BUMP_REBOUND_RATIO_LATERAL, BUMP_REBOUND_RATIO_CENTER
+from utils.settings import BUMP_REBOUND_RATIO_LATERAL, BUMP_REBOUND_RATIO_CENTER
 from static_obj.bumper import Bumper
 
 

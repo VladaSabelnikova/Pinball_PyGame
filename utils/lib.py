@@ -8,7 +8,7 @@ from typing import List, Union, Tuple
 import pygame
 
 from utils.log import create_logger
-from settings import LOG_LEVEL, BREAKING_POINT
+from utils.settings import LOG_LEVEL, BREAKING_POINT
 
 
 def load_image(name: str, colorkey=None) -> pygame.image:
