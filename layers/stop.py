@@ -86,10 +86,14 @@ def stop(score, layer_id):
         for event in pygame.event.get():
 
             if event.type == pygame.QUIT:
+                victory_sound.stop()
+                fail_sound.stop()
                 return None
 
             if event.type == pygame.USEREVENT:
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                    victory_sound.stop()
+                    fail_sound.stop()
                     return event.ui_element.text
             manager.process_events(event)
         manager.update(time_delta)

@@ -1,3 +1,5 @@
+import pygame
+
 from dinamic_obj.ball import Ball
 from layers.all_blots import add_blots
 from layers.all_bumpers import add_lateral_bumper, add_center_bumper
@@ -10,6 +12,7 @@ from settings import SIMPLE_GRAVITY, \
 
 
 def simple():
+    pygame.mixer.music.load('src/sounds/simple_theme.mp3')
     all_sprites, screen, shadow, \
     paddles, bumpers, blots, walls = creation_general_settings()
 
@@ -22,6 +25,8 @@ def simple():
 
     ball = Ball(20, gravity=SIMPLE_GRAVITY)
 
+    pygame.mixer.music.set_volume(0.1)
+    pygame.mixer.music.play(-1)
     result = game_loop(
         all_sprites,
         left_paddle_top,
@@ -37,10 +42,12 @@ def simple():
         ball
     )
 
+    pygame.mixer.music.stop()
     return result
 
 
 def average():
+    pygame.mixer.music.load('src/sounds/average_theme.mp3')
     all_sprites, screen, shadow, \
     paddles, bumpers, blots, walls = creation_general_settings()
 
@@ -54,6 +61,8 @@ def average():
 
     ball = Ball(20, gravity=AVERAGE_GRAVITY)
 
+    pygame.mixer.music.set_volume(0.23)
+    pygame.mixer.music.play(-1)
     result = game_loop(
         all_sprites,
         left_paddle_top,
@@ -69,10 +78,13 @@ def average():
         ball
     )
 
+    pygame.mixer.music.stop()
     return result
 
 
 def nightmare():
+    pygame.mixer.music.load('src/sounds/nightmare_theme.mp3')
+
     all_sprites, screen, shadow, \
     paddles, bumpers, blots, walls = creation_general_settings()
 
@@ -87,6 +99,8 @@ def nightmare():
 
     ball = Ball(20, gravity=NIGHTMARE_GRAVITY)
 
+    pygame.mixer.music.set_volume(0.2)
+    pygame.mixer.music.play(-1)
     result = game_loop(
         all_sprites,
         left_paddle_top,
@@ -101,5 +115,5 @@ def nightmare():
         shadow,
         ball
     )
-
+    pygame.mixer.music.stop()
     return result
