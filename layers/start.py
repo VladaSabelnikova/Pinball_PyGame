@@ -1,8 +1,15 @@
+from typing import Union
+
 import pygame
 import pygame_gui
 
 
-def start():
+def start() -> Union[str, None]:
+    """
+    Функция создаёт стартовое окно с выбором уровня игры.
+
+    :return: Вернёт выбор уровня от пользователя.
+    """
     size = (500, 660)
     pygame.init()
 
@@ -47,7 +54,7 @@ def start():
             if event.type == pygame.USEREVENT:
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     pygame.mixer.music.stop()
-                    return event.ui_element.text
+                    return event.ui_element.text  # название кнопочки
             manager.process_events(event)
         manager.update(time_delta)
         window_surface.blit(background, (0, 0))
