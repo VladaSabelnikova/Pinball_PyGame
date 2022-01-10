@@ -7,6 +7,9 @@ from utils.settings import BLOT_SPEED
 
 
 class Blot(pygame.sprite.Sprite):
+    """
+    Класс для создания банок с краской.
+    """
 
     def __init__(
         self,
@@ -42,7 +45,8 @@ class Blot(pygame.sprite.Sprite):
         self.static_rebound_ratio = rebound_ratio
         self.rebound_sound = pygame.mixer.Sound('src/sounds/rebound_1.mp3')
 
-        self.breaking_sound = pygame.mixer.Sound('src/sounds/breaking_blot.mp3')
+        self.breaking_sound = pygame.mixer.Sound(
+            'src/sounds/breaking_blot.mp3')
         self.breaking_sound.set_volume(.5)
 
         self.broken = False
@@ -57,28 +61,74 @@ class Blot(pygame.sprite.Sprite):
         rows: int = 1
     ) -> None:
 
-        self.rect = pygame.Rect(0, 0, sheet.get_width() // columns,
-                                sheet.get_height() // rows)
+        """
+        Метод создаёт список кадров растекания кляксы.
+
+        :param sheet: — изображение с кляксами
+        :param columns: — кол-во колонок в изображении
+        :param rows: — кол-во строк в изображении
+        :return: задача создать список из изображений (кадров),
+        мы нарежем их из исходного sheet
+        """
+
+        self.rect = pygame.Rect(
+            0,
+            0,
+            sheet.get_width() // columns,
+            sheet.get_height() // rows
+        )
+
+        # Проходимся по изображению и в self.frames пробрасываем кадры.
         for j in range(rows):
             for i in range(columns):
                 frame_location = (self.rect.w * i, self.rect.h * j)
                 self.frames.append(sheet.subsurface(pygame.Rect(
                     frame_location, self.rect.size)))
 
-    def update(self, *args):
+    def update(self, *args: Tuple) -> None:
+        """
+        Метод генерирует следующий кадр,
+        в том случае, если банка уже разбита.
+
+        :param args: Все параметры, которые есть в all_sprites.update.
+        Из них нам нужно одно лишь время.
+        :return: Задача с нелинейной скоростью сменить кадр,
+        в том случае если параметр self.broken == True
+        """
         *_, t = args[:5]
         old_frame = self.cur_frame
         if self.broken:
-            self.cur_frame += self.speed * t
+            self.cur_frame += self.speed * t  # накапливаем
             self.cur_frame = min(self.cur_frame, len(self.frames) - 1)
             self.image = self.frames[int(self.cur_frame)]
             self.mask = pygame.mask.from_surface(self.image)
 
-            if int(old_frame) != int(self.cur_frame):
+            if int(old_frame) != int(self.cur_frame):  # Смена кадра
+                # Фишка в нелинейности подхода.
+                # Изначально кадры будут сменяться быстро,
+                # а затем всё медленнее.
                 self.speed = max(self.fall_coefficient * self.speed, 16)
                 self.fall_coefficient **= 2
 
-    def creation_angle(self, ball: pygame.sprite.Sprite) -> None:
+    def creation_angle(
+        self,
+        ball: pygame.sprite.Sprite
+    ) -> None:
+
+        """
+        Метод генерирует угол, под которым столкнулся мячик.
+        Так как изначально у банки угла быть не может —
+        в момент столкновения мы его создадим для дальнейших расчетов.
+
+        Делается это просто:
+        Создаём вектор из центра окружности мячика и центра окружности банки.
+        Находим угол вектора (с помощью sin cos).
+        Далее проводим перпендикуляр — это и есть заветный угол.
+
+        :param ball: — мячик, спрайт, с которым произошло столкновение
+        :return: угол банки, в момент столкновения с мячиком.
+        """
+
         x_ball, y_ball = ball.x + ball.radius, ball.y + ball.radius
         x_blot, y_blot = self.center_circle
 
@@ -107,4 +157,3 @@ class Blot(pygame.sprite.Sprite):
         self.angle = degrees(vector_angle - (pi / 2))
         if self.angle < 0:
             self.angle += 360
-        print('blot.angle — ', self.angle)
