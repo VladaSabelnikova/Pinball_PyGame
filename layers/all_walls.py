@@ -3,7 +3,20 @@ import pygame
 from static_obj.wall import Wall
 
 
-def add_walls(all_sprites, walls):
+def add_walls(
+    all_sprites: pygame.sprite.Group,
+    walls: pygame.sprite.Group
+) -> None:
+
+    """
+    Создаёт и закидывает в группу стенки.
+    Не именуем, так как больше мы их нигде не используем.
+
+    :param all_sprites: группа со всеми спрайтами
+    :param walls: группа со всеми стенами
+    :return: Просто создаст и всё.
+    """
+
     Wall(
             angle=90,
             rebound_ratio=0.91,
