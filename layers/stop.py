@@ -1,3 +1,5 @@
+from typing import Union
+
 import pygame
 import pygame_gui
 
@@ -5,7 +7,20 @@ from utils.settings import NOT_SHAMEFUL
 from utils.lib import put_results, get_results
 
 
-def stop(score, layer_id):
+def stop(
+    score: int,
+    layer_id: int
+) -> Union[str, None]:
+
+    """
+    Функция возвращает вердикт по игре,
+    сохраняет результаты и даёт возможность продолжить, или закончить.
+
+    :param score: кол-во набранных баллов
+    :param layer_id: id уровня, на котором играл пользователь
+    :return:
+    """
+
     fail_sound = pygame.mixer.Sound('src/sounds/fail.mp3')
     victory_sound = pygame.mixer.Sound('src/sounds/victory.mp3')
     victory_sound.set_volume(.8)
@@ -16,14 +31,16 @@ def stop(score, layer_id):
     blue = (87, 206, 227)
     color = default_color
 
-    cirrent_result_font = pygame.font.Font(None, 36)
+    current_result_font = pygame.font.Font(None, 36)
     current_record_font = pygame.font.Font(None, 26)
     cur_record_message = None
 
     conclusions = 'Баллы будут в режиме "Игра"'
 
     if layer_id > 0:
-        current_record = get_results(layer_id)
+        # В противном случае это режим "Тренировка".
+        # За него баллов не начисляется.
+        current_record = get_results(layer_id)  # текущий рекорд по уровню.
 
         if current_record < int(score):
             victory_sound.play()
@@ -49,7 +66,7 @@ def stop(score, layer_id):
                 blue
             )
 
-    text = cirrent_result_font.render(conclusions, True, color)
+    text = current_result_font.render(conclusions, True, color)
 
     size = (500, 660)
     pygame.init()
@@ -78,7 +95,9 @@ def stop(score, layer_id):
     window_surface.blit(background, (0, 0))
     window_surface.blit(text, place)
     if cur_record_message:
-        place_message_cur_record = cur_record_message.get_rect(center=(250, 300))
+        place_message_cur_record = cur_record_message.get_rect(
+            center=(250, 300)
+        )
         window_surface.blit(cur_record_message, place_message_cur_record)
 
     while True:
