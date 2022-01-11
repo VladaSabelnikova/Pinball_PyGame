@@ -1,3 +1,7 @@
+"""
+В файле лежат константы и настройки.
+"""
+
 LOG_LEVEL = 'INFO'
 BALL_PATH = 'sprites/ball.png'
 KEY_UP = 1073741906
