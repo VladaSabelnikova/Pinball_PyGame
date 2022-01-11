@@ -42,13 +42,13 @@ def stop(
         # За него баллов не начисляется.
         current_record = get_results(layer_id)  # текущий рекорд по уровню.
 
-        if current_record < int(score):
+        if current_record < int(score):  # Если побили рекорд.
             victory_sound.play()
             conclusions = f'Новый рекорд {score} баллов!'
             color = green
             put_results(score, layer_id)
 
-        elif NOT_SHAMEFUL >= int(score):
+        elif NOT_SHAMEFUL >= int(score):  # Если меньше порога баллов.
             fail_sound.play()
             conclusions = f'Вы проиграли: 0 баллов'
             color = red
@@ -57,7 +57,7 @@ def stop(
                 True,
                 blue
             )
-        else:
+        else:  # Иначе просто баллы, без проигрыша и рекордов.
             conclusions = f'Ваш результат: {score} баллов'
             color = blue
             cur_record_message = current_record_font.render(
@@ -113,7 +113,7 @@ def stop(
                 if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                     victory_sound.stop()
                     fail_sound.stop()
-                    return event.ui_element.text
+                    return event.ui_element.text  # Выбор пользователя
             manager.process_events(event)
         manager.update(time_delta)
         manager.draw_ui(window_surface)
