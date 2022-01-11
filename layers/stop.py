@@ -3,15 +3,14 @@ from typing import Union
 import pygame
 import pygame_gui
 
-from utils.settings import NOT_SHAMEFUL
 from utils.lib import put_results, get_results
+from utils.settings import NOT_SHAMEFUL
 
 
 def stop(
     score: int,
     layer_id: int
 ) -> Union[str, None]:
-
     """
     Функция возвращает вердикт по игре,
     сохраняет результаты и даёт возможность продолжить, или закончить.
