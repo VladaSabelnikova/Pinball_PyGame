@@ -1,18 +1,9 @@
-from typing import Tuple
+from typing import Tuple, Union
 
 import pygame
 
 
-def creation_general_settings() \
-    -> Tuple[
-        pygame.sprite.Group,
-        pygame.display,
-        pygame.sprite.Group,
-        pygame.sprite.Group,
-        pygame.sprite.Group,
-        pygame.sprite.Group,
-        pygame.sprite.Group
-    ]:
+def creation_general_settings() -> Tuple:
     """
 
     Функция создаёт общие для всех уровней настройки.

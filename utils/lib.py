@@ -8,7 +8,7 @@ from typing import List, Union, Tuple
 import pygame
 
 from utils.log import create_logger
-from utils.settings import LOG_LEVEL, BREAKING_POINT
+from utils.settings import LOG_LEVEL
 
 
 def load_image(name: str, colorkey=None) -> pygame.image:
@@ -339,7 +339,7 @@ def get_reflected_vector_blot(
     if not blot.broken:
         vector_len = sqrt(x ** 2 + y ** 2)
 
-        if vector_len >= BREAKING_POINT:
+        if vector_len >= blot.breaking_point:
             blot.broken = True
             blot.breaking_sound.play()
             ball.kill()

@@ -21,9 +21,9 @@ class Blot(pygame.sprite.Sprite):
         name: str,
         columns: int,
         rows: int,
+        breaking_point: int,
         x: int = 0,
         y: int = 0,
-        angle=0
     ) -> None:
 
         super().__init__(blots)
@@ -32,6 +32,7 @@ class Blot(pygame.sprite.Sprite):
 
         self.rebound_ratio = rebound_ratio
         self.center_circle = center_circle
+        self.breaking_point = breaking_point
 
         self.frames = []
         self.cut_sheet(img, columns, rows)

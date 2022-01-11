@@ -8,7 +8,8 @@ from layers.all_walls import add_walls
 from layers.game_loop import game_loop
 from layers.general_settings_for_game import creation_general_settings
 from utils.settings import SIMPLE_GRAVITY, \
-    AVERAGE_GRAVITY, NIGHTMARE_GRAVITY
+    AVERAGE_GRAVITY, NIGHTMARE_GRAVITY, SIMPLE_BREAKING_POINT, \
+    AVERAGE_BREAKING_POINT, NIGHTMARE_BREAKING_POINT
 
 
 def simple():
@@ -28,7 +29,7 @@ def simple():
     # все банки с красками,
     # все лопатки.
     add_walls(all_sprites, walls)
-    add_blots(all_sprites, blots)
+    add_blots(all_sprites, blots, SIMPLE_BREAKING_POINT)
 
     left_paddle_top, right_paddle_top, \
     left_paddle_bottom, right_paddle_bottom = creation_paddles(
@@ -82,7 +83,7 @@ def average():
     # все лопатки
     # и боковые отбойники.
     add_walls(all_sprites, walls)
-    add_blots(all_sprites, blots)
+    add_blots(all_sprites, blots, AVERAGE_BREAKING_POINT)
     add_lateral_bumper(all_sprites, bumpers)
 
     left_paddle_top, right_paddle_top, \
@@ -137,7 +138,7 @@ def nightmare():
     add_walls(all_sprites, walls)
     add_lateral_bumper(all_sprites, bumpers)
     add_center_bumper(all_sprites, bumpers)
-    add_blots(all_sprites, blots)
+    add_blots(all_sprites, blots, NIGHTMARE_BREAKING_POINT)
 
     left_paddle_top, right_paddle_top, \
     left_paddle_bottom, right_paddle_bottom = creation_paddles(

@@ -6,12 +6,14 @@ from utils.lib import load_image
 
 def add_blots(
     all_sprites: pygame.sprite.Group,
-    blots: pygame.sprite.Group
+    blots: pygame.sprite.Group,
+    breaking_point: int,
 ) -> None:
     """
     Функция создаёт все цветные банки
     :param all_sprites: группа со всеми спрайтами
     :param blots: группа со всеми цветными банками
+    :param breaking_point: с какого удара банка разобьется
     :return: Банки создаются безымянными, в программе нигде не вызываются
     """
     Blot(
@@ -22,7 +24,8 @@ def add_blots(
         all_sprites=all_sprites,
         name='blot_250_100',
         columns=9,
-        rows=2
+        rows=2,
+        breaking_point=breaking_point
     )
 
     Blot(
@@ -33,7 +36,8 @@ def add_blots(
         all_sprites=all_sprites,
         name='blot_106_100',
         columns=9,
-        rows=2
+        rows=2,
+        breaking_point=breaking_point
     )
 
     Blot(
@@ -44,5 +48,6 @@ def add_blots(
         all_sprites=all_sprites,
         name='blot_394_100',
         columns=9,
-        rows=2
+        rows=2,
+        breaking_point=breaking_point
     )
