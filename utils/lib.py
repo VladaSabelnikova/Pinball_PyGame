@@ -1,5 +1,4 @@
 import datetime
-import pathlib
 import random
 from math import radians, sqrt, asin, acos, pi, degrees, sin, cos
 from pathlib import Path
@@ -23,7 +22,17 @@ def load_image(name: str, colorkey=None) -> pygame.image:
     return image
 
 
-def draw_number_balls(screen, extra_balls):
+def draw_number_balls(
+    screen: pygame.display,
+    extra_balls: int
+) -> None:
+    """
+    Функция создает в левом нижнем углу цифру extra_balls.
+
+    :param screen: полотно, на котором мы рисуем
+    :param extra_balls: кол-во мячей, которые еще есть в запасе
+    :return: рисует слева внизу цифру (кол-во оставшихся мячей)
+    """
     color = (168, 39, 41)
     font = pygame.font.Font(None, 100)
     text = font.render(f'{extra_balls + 1}', True, color)
@@ -31,7 +40,17 @@ def draw_number_balls(screen, extra_balls):
     screen.blit(text, (text_x, text_y))
 
 
-def draw_paddle_speed(screen, speed):
+def draw_paddle_speed(
+    screen: pygame.display,
+    speed: int
+) -> None:
+    """
+    Функция создаёт справа внизу шкалу скорости лопаток.
+
+    :param screen: полотно, на котором мы рисуем
+    :param speed: скорость лопаток
+    :return:
+    """
     speed -= 100
     height = 100
     width = 15
@@ -40,6 +59,10 @@ def draw_paddle_speed(screen, speed):
 
 
 def __encrypt__(*args, **kwargs):
+    """
+    Ничего я вам не скажу.
+    И вообще не надо лезть в эти закрытые функции.
+    """
     row_result, *_ = args
     encoded_result = [int(elem) for elem in row_result]
     step_1, step_2 = encoded_result[-2:]
@@ -53,6 +76,10 @@ def __encrypt__(*args, **kwargs):
 
 
 def __decipher__(*args, **kwargs):
+    """
+    Ничего я вам не скажу.
+    И вообще не надо лезть в эти закрытые функции.
+    """
     encoded_result, *_ = args
     row_result = [int(elem) for elem in encoded_result]
     step_1, step_2 = row_result[-2:][::-1]
@@ -106,7 +133,6 @@ def get_reflected_vector(
         vector_sin = -y / vector_len
         vector_angle = asin(vector_sin)
         vector_angle += pi * 2  # вычисляем размер угла из отрицательного
-    # print('vector_angle — ', degrees(vector_angle))
 
     # Есть диапазон углов, с которым вектор гарантировано не будет пересекаться
     # Нам нужно проверить, не входит ли угол поверхности в этот диапазон.
@@ -153,10 +179,12 @@ def get_reflected_vector(
         f'----------------------------'
     )
 
-    new_vector_angle_sin = sin(-new_vector_angle)  # инвертируем обратно ось Y
+    # инвертируем обратно ось Y
+    new_vector_angle_sin = sin(-new_vector_angle)
     new_vector_angle_cos = cos(new_vector_angle)
 
-    new_vector_len = vector_len * wall.rebound_ratio  # гасим отскок на коэффициент
+    # гасим отскок на коэффициент
+    new_vector_len = vector_len * wall.rebound_ratio
 
     new_x = new_vector_angle_cos * new_vector_len
     new_y = new_vector_angle_sin * new_vector_len
@@ -168,7 +196,12 @@ def get_reflected_vector(
     return new_x, new_y
 
 
-def result_file_open():
+def result_file_open() -> Tuple[Path, List[str]]:
+    """
+    Функция открывает файл и
+    в случае если файл не найден, создаёт его.
+    """
+
     user_results = Path('user_results.txt')
     if not user_results.exists():
         user_results.write_text('-1\n-1\n-1')
@@ -176,24 +209,34 @@ def result_file_open():
     return user_results, data
 
 
-def put_results(score, layer_id):
+def put_results(score: int, layer_id: int) -> None:
+    """
+    Функция записывает набранные очки в файл.
+
+    :param score: кол-во набранных очков.
+    :param layer_id: id уровня, на котором играл пользователь.
+    :return: хрен вам. Не скажу.
+    """
+
     date = ''.join(f'{datetime.date.today()}'.split('-'))
     step_1, step_2 = random.randrange(10), random.randrange(10)
     row_result = f'{layer_id}{score}{date}{step_1}{step_2}'
 
     encrypted_result = __encrypt__(row_result)
-
-    # user_results = Path('user_results.txt')
-    # data = user_results.read_text('utf-8').split('\n')
-
     user_results, data = result_file_open()
-
     data[int(encrypted_result[0])] = encrypted_result
-
     user_results.write_text('\n'.join(data))
 
 
-def get_results(layer_id):
+def get_results(
+    layer_id: int
+) -> int:
+    """
+    Функция достаёт текущий рекорд по уровню.
+
+    :param layer_id: id уровня
+    :return: текущий рекорд по уровню
+    """
     user_results, data = result_file_open()
     result_from_id = data[layer_id]
     if result_from_id == '-1':
@@ -203,7 +246,19 @@ def get_results(layer_id):
     return output
 
 
-def result_calculation(game_time, extra_balls, skills_ratio):
+def result_calculation(
+    game_time: Union[int, float],
+    extra_balls: int,
+    skills_ratio: Union[int, float]
+) -> int:
+    """
+    Функция считает баллы, которые набрал пользователь.
+
+    :param game_time: продолжительность игры пользователя
+    :param extra_balls: кол-во мячей, в которые он уложился
+    :param skills_ratio: сила лопатки
+    :return:
+    """
     skill = sum(skills_ratio) // len(skills_ratio) // 100
     return int(1_000_000 / (game_time * (3 - extra_balls) * skill))
 
@@ -273,16 +328,15 @@ def get_reflected_vector_paddle(
     # Значит нужно проверить два условия,
     # так как в этом случае диапазон делится на две части.
     if vector_angle > pi:
-        if vector_angle <= wall_angle <= pi * 2 or 0 <= wall_angle <= not_collide_range:
+        if vector_angle <= wall_angle <= pi * 2 or \
+            0 <= wall_angle <= not_collide_range:
             if the_same:
-                # vector_angle += pi
                 follow = True
             else:
                 return x, y
     else:  # В противном случае диапазон один.
         if vector_angle <= wall_angle <= not_collide_range:
             if the_same:
-                # vector_angle += pi
                 follow = True
             else:
                 return x, y
@@ -293,17 +347,11 @@ def get_reflected_vector_paddle(
     # collide_angle = сумма всех углов - сумма внутреннего угла wall_angle
     # и угла вектора vector_angle.
     collide_angle = (pi - (pi - wall_angle + vector_angle))
-    # if the_same and follow:
-    #     vector_angle -= collide_angle
+
     if the_same and follow:
         new_vector_angle = vector_angle
     else:
         new_vector_angle = collide_angle + wall_angle
-
-    # if the_same and follow:
-    #     print(degrees(wall_angle), degrees(new_vector_angle))
-    # else:
-    #     print()
 
     logger.debug(
         f'\nУгол вектора      {degrees(vector_angle) % 360}\n'
@@ -315,7 +363,8 @@ def get_reflected_vector_paddle(
     new_vector_angle_sin = sin(-new_vector_angle)  # инвертируем обратно ось Y
     new_vector_angle_cos = cos(new_vector_angle)
 
-    new_vector_len = vector_len * paddle.rebound_ratio  # гасим отскок на коэффициент
+    # гасим отскок на коэффициент
+    new_vector_len = vector_len * paddle.rebound_ratio
 
     new_x = new_vector_angle_cos * new_vector_len
     new_y = new_vector_angle_sin * new_vector_len
@@ -332,22 +381,31 @@ def get_reflected_vector_blot(
     blot: pygame.sprite.Sprite,
     *args: Tuple,
 ) -> Tuple[Union[int, float], Union[int, float]]:
+    """
+    Функция возвращает новое направление вектора
+    в случае столкновения с банкой краски.
+
+    :param vector: вектор мячика
+    :param blot: объект краски
+    :param args: остальная муть.
+    :return: возвращает новое направление вектора
+    """
     ball = args[-1]
     x, y = vector
     new_x, new_y = x, y
 
-    if not blot.broken:
+    if not blot.broken:  # банка еще не разбита
         vector_len = sqrt(x ** 2 + y ** 2)
 
-        if vector_len >= blot.breaking_point:
+        if vector_len >= blot.breaking_point:  # силы удара достаточно
             blot.broken = True
             blot.breaking_sound.play()
             ball.kill()
         else:
-            blot.creation_angle(ball)
-            # print(blot.angle)
+            blot.creation_angle(ball)  # создадим угол у банки
+
+            # дальше алгоритм счета аналогичен счету со стеной
             new_x, new_y = get_reflected_vector(vector, blot)
-            # new_x, new_y = get_reflected_vector_paddle(vector, blot, False)
 
     return new_x, new_y
 
@@ -357,6 +415,15 @@ def get_reflected_vector_bumper(
     bumper: pygame.sprite.Sprite,
     *args: Tuple,
 ) -> Tuple[Union[int, float], Union[int, float]]:
+    """
+    Функция возвращает новое направление вектора
+    в случае столкновения с отбойником.
+    :param vector: вектор мячика
+    :param bumper: объект отбойник
+    :param args: остальная муть.
+    :return: возвращает новое направление вектора
+    """
+
     ball = args[-1]
     bumper.creation_angle(ball)
     new_x, new_y = get_reflected_vector(vector, bumper)
