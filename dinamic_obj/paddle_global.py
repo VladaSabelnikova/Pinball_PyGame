@@ -55,6 +55,12 @@ class PaddleGlobal(pygame.sprite.Sprite):
         columns: int = 3,
         rows: int = 1
     ) -> None:
+        """
+        Метод нарезает спрайт на отдельные изображения и заполняет self.frames
+        :param sheet: Картинка - спрайт
+        :param columns: Число колонок в sheet
+        :param rows: Число строк в sheet
+        """
 
         self.rect = pygame.Rect(0, 0, sheet.get_width() // columns,
                                 sheet.get_height() // rows)
