@@ -18,7 +18,7 @@ class Bumper(pygame.sprite.Sprite):
         all_sprites: pygame.sprite.Group,
         bumpers: pygame.sprite.Group,
         name: str,
-        rebound_ratio,
+        rebound_ratio: int,
         x: int = 0,
         y: int = 0,
     ) -> None:
@@ -26,7 +26,6 @@ class Bumper(pygame.sprite.Sprite):
         self.add(bumpers)
         self.name = name
 
-        # self.angle = angle
         self.rebound_ratio = rebound_ratio
         self.rebound_sound = pygame.mixer.Sound('src/sounds/rebound_1.mp3')
 
@@ -41,6 +40,13 @@ class Bumper(pygame.sprite.Sprite):
             self.rect.y = y
 
     def creation_angle(self, ball: pygame.sprite.Sprite) -> None:
+        """
+        Метод создаёт угол касательной исходя из координат центра банки
+        и координат центра мячика.
+
+        :param ball: спрайт мячик
+        :return: Создаёт угол касательной мяча и краски
+        """
         x_ball, y_ball = ball.x + ball.radius, ball.y + ball.radius
         x_blot, y_blot = self.center_circle
 
@@ -48,24 +54,28 @@ class Bumper(pygame.sprite.Sprite):
 
         vector_len = sqrt(x_vector ** 2 + y_vector ** 2)
 
-        if x_vector > 0 and y_vector <= 0:  # если вектор направлен в 1-ю координатную четверть
+        # если вектор направлен в 1-ю координатную четверть
+        if x_vector > 0 and y_vector <= 0:
             vector_sin = -y_vector / vector_len
             vector_angle = asin(vector_sin)
 
-        elif x_vector <= 0 and y_vector < 0:  # если вектор направлен в 2-ю координатную четверть
+        # если вектор направлен в 2-ю координатную четверть
+        elif x_vector <= 0 and y_vector < 0:
             vector_cos = x_vector / vector_len
             vector_angle = acos(vector_cos)
 
-        elif x_vector < 0 and y_vector >= 0:  # если вектор направлен в 3-ю координатную четверть
+        # если вектор направлен в 3-ю координатную четверть
+        elif x_vector < 0 and y_vector >= 0:
             vector_cos = x_vector / vector_len
             vector_angle = -acos(vector_cos)
             vector_angle += pi * 2  # вычисляем размер угла из отрицательного
 
-        elif x_vector >= 0 and y_vector > 0:  # если вектор направлен в 4-ю координатную четверть
+        # если вектор направлен в 4-ю координатную четверть
+        elif x_vector >= 0 and y_vector > 0:
             vector_sin = -y_vector / vector_len
             vector_angle = asin(vector_sin)
             vector_angle += pi * 2  # вычисляем размер угла из отрицательного
 
-        self.angle = degrees(vector_angle - (pi / 2))
+        self.angle = degrees(vector_angle - (pi / 2))  # перпендикуляр
         if self.angle < 0:
-            self.angle += 360
+            self.angle += 360  # Отрицательный угол нам не подходит
