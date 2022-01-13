@@ -3,7 +3,7 @@ from layers.start import start
 from layers.stop import stop
 from utils.settings import ID_LAYERS
 
-layers = [simple, average, nightmare]
+game_layers = [simple, average, nightmare]
 
 
 def main():
@@ -12,7 +12,7 @@ def main():
         name_layer = start()
         if name_layer:  # Если не закрыл окно
             layer_id = ID_LAYERS[name_layer]
-            layer = layers[layer_id]
+            layer = game_layers[layer_id]
 
             # score — кол-во набранных очков в уровне
             score = layer()
