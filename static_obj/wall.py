@@ -2,7 +2,7 @@ from typing import Union
 
 import pygame
 
-from utils import load_image
+from utils.lib import load_image
 
 
 class Wall(pygame.sprite.Sprite):
@@ -27,6 +27,8 @@ class Wall(pygame.sprite.Sprite):
 
         self.angle = angle
         self.rebound_ratio = rebound_ratio
+
+        self.rebound_sound = pygame.mixer.Sound('src/sounds/rebound_1.mp3')
 
         self.image = load_image(img)
         if self.image:

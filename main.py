@@ -1,114 +1,33 @@
-import pygame
+from layers.all_layers import average, nightmare, simple
+from layers.start import start
+from layers.stop import stop
+from utils.settings import ID_LAYERS
 
-from dinamic_obj.ball import Ball
-from static_obj.wall import Wall
+game_layers = [simple, average, nightmare]
 
 
 def main():
-    pygame.init()
-    pygame.display.set_caption('Столкновение шариков')
-    all_sprites = pygame.sprite.Group()
-    screen = pygame.display.set_mode((500, 660))
-    walls = pygame.sprite.Group()
-    shadow = pygame.sprite.Group()
+    while True:
+        # name_layer — выбор пользователя о том, какой уровень ему хочется.
+        name_layer = start()
+        if name_layer:  # Если не закрыл окно
+            layer_id = ID_LAYERS[name_layer]
+            layer = game_layers[layer_id]
 
-    Wall(
-        angle=90,
-        rebound_ratio=0.91,
-        img='images/left_1_bottom_90.png',
-        all_sprites=all_sprites,
-        walls=walls,
-        name='left_1_bottom_90'
-    )
+            # score — кол-во набранных очков в уровне
+            score = layer()
+            if score:  # Если не закрыл окно
+                user_choice = stop(score, layer_id)
 
-    Wall(
-        angle=133,
-        rebound_ratio=0.91,
-        img='images/left_1_main_133.png',
-        all_sprites=all_sprites,
-        walls=walls,
-        name='left_1_main_133'
-    )
-
-    Wall(
-        angle=270,
-        rebound_ratio=0.91,
-        img='images/right_1_bottom_270.png',
-        all_sprites=all_sprites,
-        walls=walls,
-        name='right_1_bottom_270'
-    )
-    Wall(
-        angle=223,
-        rebound_ratio=0.91,
-        img='images/right_1_main_223.png',
-        all_sprites=all_sprites,
-        walls=walls,
-        name='right_1_main_223'
-    )
-
-    Wall(
-        angle=0,
-        rebound_ratio=0.91,
-        img='images/top_2_temp_0.png',
-        all_sprites=all_sprites,
-        walls=walls,
-        name='top_2_temp_0'
-    )
-
-    Wall(
-        angle=270,
-        rebound_ratio=0.91,
-        img='images/right_2_temp_270.png',
-        all_sprites=all_sprites,
-        walls=walls,
-        name='right_2_temp_270'
-    )
-
-    Wall(
-        angle=90,
-        rebound_ratio=0.91,
-        img='images/left_2_temp_90.png',
-        all_sprites=all_sprites,
-        walls=walls,
-        name='left_2_temp_90'
-    )
-
-    Wall(
-        angle=223,
-        rebound_ratio=0.91,
-        img='images/right_1_paddle_223.png',
-        all_sprites=all_sprites,
-        walls=walls,
-        name='right_1_paddle_223'
-    )
-
-    Wall(
-        angle=133,
-        rebound_ratio=0.91,
-        img='images/left_1_paddle_133.png',
-        all_sprites=all_sprites,
-        walls=walls,
-        name='left_1_paddle_133'
-    )
-
-
-
-    for i in range(1):
-        Ball(20, 200, 200, all_sprites)
-    running = True
-    clock = pygame.time.Clock()
-    while running:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-        screen.fill((40, 40, 40))
-        all_sprites.draw(screen)
-        t = clock.tick() / 1000
-        all_sprites.update(walls, t, all_sprites, shadow, screen)
-        pygame.display.flip()
-
-    pygame.quit()
+                # user_choice — выбор пользователя о том,
+                # продолжаем ли мы играть или же выходим из игры.
+                if user_choice:
+                    if user_choice == 'Закончить':
+                        break
+                else:
+                    break
+        else:
+            break
 
 
 if __name__ == '__main__':
