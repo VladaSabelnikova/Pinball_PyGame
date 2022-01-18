@@ -50,6 +50,7 @@ class Blot(pygame.sprite.Sprite):
             'src/sounds/breaking_blot.ogg')
         self.breaking_sound.set_volume(.5)
 
+        self.channel = pygame.mixer.Channel(2)
         self.broken = False
         self.angle = None
         self.just_broken = True
@@ -101,7 +102,7 @@ class Blot(pygame.sprite.Sprite):
         old_frame = self.cur_frame
         if self.broken:
             if self.just_broken:
-                self.breaking_sound.play()
+                self.channel.play(self.breaking_sound)
                 self.just_broken = False
             self.cur_frame += self.speed * t  # накапливаем
             self.cur_frame = min(self.cur_frame, len(self.frames) - 1)
