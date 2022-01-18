@@ -11,6 +11,7 @@ def creation_general_settings() -> Tuple:
     :return: Возвращает необходимые для игры параметры
     """
     pygame.init()
+    pygame.mixer.init(buffer=8192)
     pygame.display.set_caption('Игра')
     all_sprites = pygame.sprite.Group()
     screen = pygame.display.set_mode((500, 660))

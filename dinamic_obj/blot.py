@@ -44,14 +44,15 @@ class Blot(pygame.sprite.Sprite):
 
         self.speed = BLOT_SPEED
         self.static_rebound_ratio = rebound_ratio
-        self.rebound_sound = pygame.mixer.Sound('src/sounds/rebound_1.mp3')
 
+        self.rebound_sound = pygame.mixer.Sound('src/sounds/rebound_1.ogg')
         self.breaking_sound = pygame.mixer.Sound(
-            'src/sounds/breaking_blot.mp3')
+            'src/sounds/breaking_blot.ogg')
         self.breaking_sound.set_volume(.5)
 
         self.broken = False
         self.angle = None
+        self.just_broken = True
 
         self.fall_coefficient = .95
 
@@ -99,6 +100,9 @@ class Blot(pygame.sprite.Sprite):
         *_, t = args[:5]
         old_frame = self.cur_frame
         if self.broken:
+            if self.just_broken:
+                self.breaking_sound.play()
+                self.just_broken = False
             self.cur_frame += self.speed * t  # накапливаем
             self.cur_frame = min(self.cur_frame, len(self.frames) - 1)
             self.image = self.frames[int(self.cur_frame)]

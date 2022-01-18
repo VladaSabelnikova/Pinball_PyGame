@@ -27,7 +27,7 @@ class Bumper(pygame.sprite.Sprite):
         self.name = name
 
         self.rebound_ratio = rebound_ratio
-        self.rebound_sound = pygame.mixer.Sound('src/sounds/rebound_1.mp3')
+        self.rebound_sound = pygame.mixer.Sound('src/sounds/rebound_1.ogg')
 
         self.center_circle = center_circle
 

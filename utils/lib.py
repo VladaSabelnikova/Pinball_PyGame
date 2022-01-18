@@ -399,7 +399,6 @@ def get_reflected_vector_blot(
 
         if vector_len >= blot.breaking_point:  # силы удара достаточно
             blot.broken = True
-            blot.breaking_sound.play()
             ball.kill()
         else:
             blot.creation_angle(ball)  # создадим угол у банки
