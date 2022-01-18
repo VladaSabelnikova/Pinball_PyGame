@@ -22,19 +22,19 @@ def start() -> Union[str, None]:
     background.fill(pygame.Color((40, 40, 40)))
     manager = pygame_gui.UIManager(size)
 
-    simple_level = pygame_gui.elements.UIButton(
+    pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect((160, 160), (180, 60)),
         text='Тренировка',
         manager=manager
     )
 
-    average_level = pygame_gui.elements.UIButton(
+    pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect((160, 250), (180, 60)),
         text='Игра',
         manager=manager
     )
 
-    nightmare_level = pygame_gui.elements.UIButton(
+    pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect((160, 340), (180, 60)),
         text='NIGHTMARE',
         manager=manager

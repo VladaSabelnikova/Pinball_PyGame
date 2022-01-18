@@ -49,7 +49,7 @@ def stop(
 
         elif NOT_SHAMEFUL >= int(score):  # Если меньше порога баллов.
             fail_sound.play()
-            conclusions = f'Вы проиграли: 0 баллов'
+            conclusions = 'Вы проиграли: 0 баллов'
             color = red
             cur_record_message = current_record_font.render(
                 f'Рекорд: {current_record}',
@@ -78,13 +78,13 @@ def stop(
     manager = pygame_gui.UIManager(size)
     place = text.get_rect(center=(250, 240))
 
-    anew = pygame_gui.elements.UIButton(
+    pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect((60, 560), (180, 60)),
         text='Заново',
         manager=manager
     )
 
-    close = pygame_gui.elements.UIButton(
+    pygame_gui.elements.UIButton(
         relative_rect=pygame.Rect((270, 560), (180, 60)),
         text='Закончить',
         manager=manager
